@@ -1,0 +1,333 @@
+/*--------------------------------------------------------------
+  Template Name: Uniqlo-Minimalist eCommerce HTML5 Template.
+  Template URI: #
+  Description: Uniqlo is a unique website template designed in HTML with a simple & beautiful look. There is an excellent solution for creating clean, wonderful and trending material design corporate, corporate any other purposes websites.
+  Author: HasTech
+  Author URI: https://themeforest.net/user/hastech/portfolio
+  Version: 1.1
+---------------------------------------------------------------*/
+
+/* ----------------------------------------------------
+	You can put your custom css code here: 
+-------------------------------------------------------*/
+
+
+.banner_black h2{
+  color: #000;
+}
+
+.banner_white h2{
+  color: #fff;
+}
+
+.eye i{
+	cursor: pointer;
+}
+
+.register{
+    float: left;
+    color: #ff4136;
+    font-size: 12px;
+}
+
+.product__details{
+	float: center;
+}
+
+.product__details h2{
+	display: inline;
+}
+
+.product__details li{
+	float: right;
+}
+
+.product__details .new__price{
+	color: #ff4136;	
+	margin-left: 10px;
+}
+
+.num_fav{
+	color: black;
+	font-size: 15px;
+}
+
+.product_vendido{
+	color: #a51d2d;
+	font-weight: bold;
+}
+
+
+.product_en_venta {
+	color: #26a269;
+	font-weight: bold;
+}
+
+.title_fav{
+	margin-top: 50px;
+}
+
+.errorComment{
+	margin-top: 15px;
+}
+
+
+.rating{
+	margin-bottom: 5px;
+}
+
+.rating-title{
+	margin-top: 20px;
+}
+
+.rating li i{
+	color: orange;
+}
+
+.filtro_estrellas{
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.box img{
+  width: 250px;
+  height: auto;
+}
+@supports(object-fit: cover){
+    .box img{
+      height: 250px;
+      object-fit: cover;
+      object-position: center center;
+    }
+}
+
+.vendido_icon {
+    top: 12px;
+    position: absolute;
+    left: 12px;
+}
+
+.vendido_icon img{
+	width: 32px;
+	height: 32px;
+}
+
+.userFavorite{
+	width: 70px;
+	height: 70px;
+	margin-bottom: 20px;
+	margin-left : 30px;
+	float: left;
+}
+
+.userFavorite a{
+	float: center;
+}
+
+.userFavorite:hover a{
+	color: #ff4136;
+}
+
+.titles_user{
+	margin-top: 20px;
+	font-weight: bold;
+	font-size: 30px;
+}
+
+
+.favorite_heart{
+	color: #ff4136;
+	font-size: 15px;
+}
+
+.icons_profile{
+	margin-right: 0%;
+}
+
+.icons_profile a{
+	color: black;
+}
+
+.icons_profile span:hover{
+	color: #ff4136;
+}
+
+
+.pro__dtl__btn li.vendido_boton a {
+	border: 1px solid #d5d5d5;
+    color: #4b4b4b;
+    font-size: 14px;
+    text-transform: uppercase;
+    width: 175px;
+    transition: 0.3s;
+
+}
+
+
+.product__inner:hover{
+	background-color: black;
+	
+}
+
+.new__price{
+	font-size: 20px;
+}
+
+.favorites_prod{
+	float: right;	
+}
+
+.filter_act{
+	text-decoration: underline;
+}
+
+.user_ven{
+	font-weight: bold;
+	color: black;
+	cursor: pointer;
+}
+
+.user_ven:hover{
+	color: red;
+}
+
+/* ----------------------------------------------------
+	Ampliacion
+-------------------------------------------------------*/
+
+.rapido{
+	color: orange;
+}
+
+/* ----------------------------------------------------
+	User profile 
+-------------------------------------------------------*/
+.username_profile{
+	font-weight: bold;
+}
+
+.email_profile{
+	font-size: 12px;
+	font-style: italic;
+}
+
+.close_profile{
+	background-color: #a51d2d;
+	border-color: #a51d2d;
+}
+
+.close_profile:hover{
+	background-color: #ed333b;
+	border-color: black;
+}
+
+.card{
+	border-color: #a51d2d;
+	border-width: medium;
+}
+
+.articles, .vendidos, .rating{
+	color: #241f31;
+	font-weight: bold;
+	
+}
+
+.number_articles, .number_vendidos, .number_rating{
+	color: #241f31;
+}
+
+/* ----------------------------------------------------
+	Page error 
+-------------------------------------------------------*/
+
+#notfound {
+  position: relative;
+  height: 100vh;
+}
+
+#notfound .notfound {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.notfound {
+  max-width: 520px;
+  width: 100%;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.notfound .notfound-404 {
+  height: 190px;
+}
+
+.notfound .notfound-404 h1 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 146px;
+  font-weight: 700;
+  margin: 0px;
+  color: #232323;
+}
+
+.notfound .notfound-404 h1>span {
+  display: inline-block;
+  width: 120px;
+  height: 120px;
+  background-image: url('../images/error/emoji.png');
+  background-size: cover;
+  -webkit-transform: scale(1.4);
+      -ms-transform: scale(1.4);
+          transform: scale(1.4);
+  z-index: -1;
+}
+
+.notfound h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0;
+  text-transform: uppercase;
+  color: #232323;
+  padding-bottom: 20px;
+}
+
+.notfound p {
+  font-family: 'Montserrat', sans-serif;
+  color: #787878;
+  font-weight: 300;
+  padding-bottom: 20px;
+}
+
+.notfound a {
+  font-family: 'Montserrat', sans-serif;
+  display: inline-block;
+  padding: 12px 30px;
+  font-weight: 700;
+  background-color: #a51d2d;
+  color: #fff;
+  border-radius: 40px;
+  text-decoration: none;
+  -webkit-transition: 0.2s all;
+  transition: 0.2s all;
+}
+
+.notfound a:hover {
+  opacity: 0.8;
+}
+
+@media only screen and (max-width: 767px) {
+  .notfound .notfound-404 {
+    height: 115px;
+  }
+  .notfound .notfound-404 h1 {
+    font-size: 86px;
+  }
+  .notfound .notfound-404 h1>span {
+    width: 86px;
+    height: 86px;
+  }
+}
