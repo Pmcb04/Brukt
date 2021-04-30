@@ -41,12 +41,15 @@
 				<div class="product-price"><fmt:formatNumber type="number" maxFractionDigits="2" minFractionDigits="2" value="${param.price}" /> ${param.currency}</div>
 			<c:choose>
     			<c:when test="${param.idu==user.id}">
-					<div class="icons_profile"> <a href="DeleteProductServlet.do?id=${param.id}"><span class="material-icons">delete</span></a> <a href="EditProductServlet.do?id=${param.id}"><span class="material-icons">edit</span></a> </div>
+					<div class="icons_profile"> 
+						<a href="DeleteProductServlet.do?id=${param.id}" >	<span class="material-icons">delete</span>
+						</a>
+						<a href="EditProductServlet.do?id=${param.id}"><span class="material-icons">edit</span></a> </div>
     			</c:when>
     		</c:choose>
 			</div>
-		</div>
+		</div>	
 
-	
     </div>
+
 </div>

@@ -239,6 +239,84 @@ public class JDBCProductDAOImpl implements ProductDAO {
 
 		return products;
 	}
+
+	public List<Product> getAllByUserSale(long idu) {
+		
+		if (conn == null)
+			return null;
+
+		ArrayList<Product> products = new ArrayList<Product>();
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM product WHERE idu = "+ idu+ " and soldout = '0'");
+
+			while (rs.next()) {
+				Product product = new Product();
+				
+				product.setId(rs.getInt("id"));
+				product.setTitle(rs.getString("title"));
+				product.setDescription(rs.getString("description"));
+				product.setCategory(rs.getString("category"));
+				product.setStock(rs.getInt("stock"));
+				product.setCurrency(rs.getString("currency"));
+				product.setPrice(rs.getFloat("price"));
+				product.setIdu(rs.getInt("idu"));
+				product.setSoldout(rs.getInt("soldout"));
+				product.setImage(rs.getString("image"));
+				product.setRapido(rs.getString("rapido"));
+				
+				products.add(product);
+				
+				logger.info("fetching products by text either in the title or in the description: "+product.toString());				
+				
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return products;
+	}
+
+	public List<Product> getAllByUserSold(long idu) {
+		
+		if (conn == null)
+			return null;
+
+		ArrayList<Product> products = new ArrayList<Product>();
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM product WHERE idu = "+ idu + " and soldout = '1'");
+
+			while (rs.next()) {
+				Product product = new Product();
+				
+				product.setId(rs.getInt("id"));
+				product.setTitle(rs.getString("title"));
+				product.setDescription(rs.getString("description"));
+				product.setCategory(rs.getString("category"));
+				product.setStock(rs.getInt("stock"));
+				product.setCurrency(rs.getString("currency"));
+				product.setPrice(rs.getFloat("price"));
+				product.setIdu(rs.getInt("idu"));
+				product.setSoldout(rs.getInt("soldout"));
+				product.setImage(rs.getString("image"));
+				product.setRapido(rs.getString("rapido"));
+				
+				products.add(product);
+				
+				logger.info("fetching products by text either in the title or in the description: "+product.toString());				
+				
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return products;
+	}
 	
 	
 	@Override

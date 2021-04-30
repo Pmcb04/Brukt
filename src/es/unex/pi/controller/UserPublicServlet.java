@@ -54,11 +54,11 @@ public class UserPublicServlet extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		User user_session = (User) session.getAttribute("user");
-		User user = userDao.get(request.getParameter("username_user"));
+		User user_public = userDao.get(request.getParameter("username_user"));
 		
 		if(user_session != null) {
 			
-			if( user_session.getUsername().equals(user.getUsername())) response.sendRedirect("UserServlet.do");
+			if( user_session.getUsername().equals(user_public.getUsername())) response.sendRedirect("UserServlet.do");
 			else {
 				
 				List<Product> products_user = new ArrayList <Product>();
@@ -71,7 +71,7 @@ public class UserPublicServlet extends HttpServlet {
 				FavoriteDAO favoritesDao = new JDBCFavoriteDAOImpl();
 				favoritesDao.setConnection(conn);
 				
-				products_user = productDao.getAllByUser(user.getId());
+				products_user = productDao.getAllByUser(user_public.getId());
 				
 				int user_venta = 0, user_vendido = 0;
 				
@@ -91,7 +91,7 @@ public class UserPublicServlet extends HttpServlet {
 				}
 				
 				request.setAttribute("products_user", productsUserList);
-				request.setAttribute("user", user);
+				request.setAttribute("user_public", user_public);
 				RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/html/UserPublicProfile.jsp");
 				view.forward(request,response);
 				

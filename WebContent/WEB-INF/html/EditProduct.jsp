@@ -37,9 +37,30 @@
                         <div class="htc__login__register__wrap">
                             <!-- Start Single Content -->
                            	<div id="login" role="tabpanel" class="single__tabs__panel tab-pane fade in active">
-                                <form class="login" method="post" enctype="multipart/form-data">
+                                <form id="target" class="login" method="post" enctype="multipart/form-data">
                                 
-                              		<input type="file" name="file" />	
+                                        <label for="input">
+                                            <img id="img" src="${pageContext.request.contextPath}/images/product/${product.image}" class="rounded-circle"> 			        
+                                        </label>
+                                        
+                                        <input onchange="file_changed();" id="input" name="file" type="file" style="display: none;"/>
+                                        
+                                        <script>
+                                        
+                                        function file_changed(){
+                                            var selectedFile = document.getElementById('input').files[0];
+                                            var img = document.getElementById('img')
+                    
+                                            var reader = new FileReader();
+                                            reader.onload = function(){
+                                                img.src = this.result
+                                            }
+                                            reader.readAsDataURL(selectedFile);
+                                        }
+                                         
+                                        </script>
+                                        
+
                                     <input class="input" type="text" placeholder="${product.title}" name="name">
                                     <input class="input" type="text" placeholder="${product.description}" name="description">
                                     <input class="input" type="number" step="1"    min="1" placeholder="${product.stock}" name="numero">

@@ -32,7 +32,7 @@ public class JDBCUserDAOImpl implements UserDAO {
 			user.setPassword(rs.getString("password"));
 			user.setImage(rs.getString("image"));
 			user.setGenero(rs.getString("genero"));
-			user.setGenero(rs.getString("role"));
+			user.setRole(rs.getString("role"));
 			logger.info("fetching User by id: "+id+" -> " + user.toString());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -58,7 +58,7 @@ public class JDBCUserDAOImpl implements UserDAO {
 			user.setPassword(rs.getString("password"));
 			user.setImage(rs.getString("image"));
 			user.setGenero(rs.getString("genero"));
-			user.setGenero(rs.getString("role"));
+			user.setRole(rs.getString("role"));
 			logger.info("fetching User by name: "+ username + " -> "+ user.toString());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -85,7 +85,7 @@ public class JDBCUserDAOImpl implements UserDAO {
 				user.setEmail(rs.getString("email"));
 				user.setImage(rs.getString("image"));
 				user.setGenero(rs.getString("genero"));
-				user.setGenero(rs.getString("role"));
+				user.setRole(rs.getString("role"));
 				//user.setPassword(rs.getString("password"));
 				user.setPassword("********");//We return all users with a hidden password
 				

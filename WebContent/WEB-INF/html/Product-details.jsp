@@ -13,6 +13,9 @@
     
     
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/starts.css">
+
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/product.css"/>
+	<script src="${pageContext.request.contextPath}/js/product.js"></script>
     
 </head>
 
@@ -113,11 +116,17 @@
 						    		<c:when test="${favorite_user==false && product.idu!=user.id}">
 						    		 	<li><a class ="favorite_link" href="AddFavoriteServlet.do?idu=${user.id}&idp=${product.id}&favorites=${favorites}&numEstrellas=Todas" title="Añadir a favoritos"><span class="material-icons favorite_heart">favorite_border</span></a></li>
 						    		</c:when>					    		
-                                 
-                                 
 
 						    	</c:choose>
                             </ul>
+							<c:choose>
+								<c:when test="${product.idu==user.id}">
+									<div class="icons_profile"> 
+										<a href="DeleteProductServlet.do?id=${param.id}" >	<span class="material-icons">delete</span>
+										</a>
+										<a href="EditProductServlet.do?id=${param.id}"><span class="material-icons">edit</span></a> </div>
+								</c:when>
+							</c:choose>
                         </div>
                     </div>
                 </div>

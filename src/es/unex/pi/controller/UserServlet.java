@@ -1,6 +1,10 @@
 package es.unex.pi.controller;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,12 +14,13 @@ import java.util.logging.Logger;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
+import javax.servlet.http.Part;
 
 import es.unex.pi.dao.CommentDAO;
 import es.unex.pi.dao.FavoriteDAO;
@@ -36,6 +41,7 @@ import es.unex.pi.util.DoubleClass;
  * Servlet implementation class UserServlet
  */
 @WebServlet("/user/UserServlet.do")
+@MultipartConfig
 public class UserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final Logger logger = Logger.getLogger(HttpServlet.class.getName());
@@ -50,7 +56,54 @@ public class UserServlet extends HttpServlet {
     
     
     private void updatePhoto(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
-      // TODO : Completar metodo	
+		
+		logger.info("UserServlet : Handling POST : updatePhoto");
+
+		HttpSession session = request.getSession();
+		Connection conn = (Connection) getServletContext().getAttribute("dbConn");
+		UserDAO userDao = new JDBCUserDAOImpl();
+		userDao.setConnection(conn);
+
+		User user = (User) session.getAttribute("user");
+
+		System.out.println(user.toString());
+
+		String fileName = (user.getGenero().equals("Hombre"))? "man.png" : "woman.png";
+		InputStream fileContent;
+		Part filePart = request.getPart("file");
+		
+		if(filePart != null) {
+			
+			fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+			fileContent = filePart.getInputStream();
+			
+			
+			if(fileContent.available() != 0) {
+				String relativeWebPath = request.getServletContext().getRealPath("/images/user/");
+				File imageContent = new File(relativeWebPath, fileName);
+				imageContent.createNewFile();
+				
+				FileOutputStream imageFile = new FileOutputStream(relativeWebPath + fileName);
+				
+				int n=0,c;
+				System.out.println("Copiando ...");
+				while( (c = fileContent.read()) != -1){
+					imageFile.write(c);
+					n++;
+				}
+				fileContent.close();
+				imageFile.close();
+				System.out.println("Se han copiado "+n+" caracteres");
+				
+			}
+		}
+
+		user.setImage(fileName);
+
+		userDao.save(user);
+		
+		response.sendRedirect("UserServlet.do");
+
     }
     
     private void updateData(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException  {
@@ -77,10 +130,13 @@ public class UserServlet extends HttpServlet {
 		if(!password.equals(""))
 			user.setPassword(password);
 		
-		if(genero.equals("Hombre"))
-			user.setImage("man.png");
-		else if(genero.equals("Mujer"))
-			user.setImage("woman.png");
+		if(user.getImage().equals("man.png") || user.getImage().equals("woman.png")){
+			if(genero.equals("Hombre"))
+				user.setImage("man.png");
+			else if(genero.equals("Mujer"))
+				user.setImage("woman.png");
+		}
+
 
 		
 		Map<String, String> messages = new HashMap<String, String>();
@@ -199,12 +255,14 @@ public class UserServlet extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
-		
-		List<Product> products_user = new ArrayList <Product>();
+				
+		List<Product> products_user_sale = new ArrayList <Product>();
+		List<Product> products_user_sold = new ArrayList <Product>();
 		List<Product> favorites_user = new ArrayList <Product>();
 		List<User> usersFavorites = new ArrayList<User>();
 		List<DoubleClass<Product, List<User>>> favoritesUserList = new ArrayList<DoubleClass<Product, List<User>>>();
-		List<DoubleClass<Product, List<User>>> productsUserList = new ArrayList<DoubleClass<Product, List<User>>>();
+		List<DoubleClass<Product, List<User>>> productsSaleUserList = new ArrayList<DoubleClass<Product, List<User>>>();
+		List<DoubleClass<Product, List<User>>> productsSoldUserList = new ArrayList<DoubleClass<Product, List<User>>>();
 		
 		
 		Connection conn = (Connection) getServletContext().getAttribute("dbConn");
@@ -215,32 +273,31 @@ public class UserServlet extends HttpServlet {
 		FavoriteDAO favoritesDao = new JDBCFavoriteDAOImpl();
 		favoritesDao.setConnection(conn);
 
-		products_user = productDao.getAllByUser(user.getId());
+		products_user_sale = productDao.getAllByUserSale(user.getId());
+		products_user_sold = productDao.getAllByUserSold(user.getId());
 		favorites_user = favoritesDao.getAllByUser(user.getId());
 		
-		int user_venta = 0, user_vendido = 0;
 		
-		for (Product product : products_user) {
-			if(product.getSoldout() == 1) user_vendido += 1;
-			else user_venta+=1;
-		}
+		request.setAttribute("user_venta", products_user_sale.size());
+		request.setAttribute("user_vendido", products_user_sold.size());
 		
 		
-		request.setAttribute("user_venta", user_venta);
-		request.setAttribute("user_vendido", user_vendido);
-		
-		
-		for (Product product : products_user) {
+		for (Product product : products_user_sale) {
 			usersFavorites = favoritesDao.getAllByProduct(product.getId());
-			productsUserList.add(new DoubleClass<Product, List<User>>(product,usersFavorites));
+			productsSaleUserList.add(new DoubleClass<Product, List<User>>(product,usersFavorites));
+		}
+
+		for (Product product : products_user_sold) {
+			usersFavorites = favoritesDao.getAllByProduct(product.getId());
+			productsSoldUserList.add(new DoubleClass<Product, List<User>>(product,usersFavorites));
 		}
 		
 		for (Product product : favorites_user) {
 			usersFavorites = favoritesDao.getAllByProduct(product.getId());
 			favoritesUserList.add(new DoubleClass<Product, List<User>>(product,usersFavorites));
 		}
-		
-		request.setAttribute("products_user", productsUserList);
+		request.setAttribute("products_user_sale", productsSaleUserList);
+		request.setAttribute("products_user_sold", productsSoldUserList);
 		request.setAttribute("favorites_user", favoritesUserList);
 		
 		RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/user/user.jsp");

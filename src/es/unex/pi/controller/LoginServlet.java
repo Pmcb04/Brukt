@@ -50,8 +50,12 @@ public class LoginServlet extends HttpServlet {
 		//If there is not a session, the Login.jsp must be involved, otherwise, the orders must be listed by using the ListOrderServlet.do
 		
 		HttpSession session = request.getSession();
-		if(session.getAttribute("user") != null)
-			response.sendRedirect("user/UserServlet.do");
+		User user = (User) session.getAttribute("user");
+		System.out.println(user);
+		
+		if(user != null) {
+			response.sendRedirect("user/UserServlet.do");			
+		}
 		else {
 			RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/html/Login.jsp");
 			view.forward(request, response);

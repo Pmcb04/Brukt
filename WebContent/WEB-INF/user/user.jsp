@@ -14,6 +14,18 @@
 
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/product.css"/>
 	<script src="${pageContext.request.contextPath}/js/product.js"></script>
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+	
+	<script>
+	function setText(t) {
+		var elem = document.getElementById('title');
+		elem.style.color = t;
+	}
+	
+	</script>
+	
     
 </head>
 
@@ -38,24 +50,25 @@
             <div class="row justify-content-center">
               <div class="col-lg-3 order-lg-2">
                  <div class="card-profile-image image-upload">
-                 <form action="EditUserServlet.do" method="post">
-				    <label for="file-input">
-				        <img id="user-image" src="${pageContext.request.contextPath}/images/user/${user.image}" class="rounded-circle"> 			        
+                 <form id="target" action="UserServlet.do?action=photo" method="post" enctype="multipart/form-data">
+				    <label for="input">
+				        <img id="img" src="${pageContext.request.contextPath}/images/user/${user.image}" class="rounded-circle"> 			        
 				    </label>
 				    
-				    <input id="file-input" name="foto" type="file"/>
+				    <input onchange="file_changed();javascript:document.getElementById('target').submit();" id="input" name="file" type="file" style="display: none;"/>
 				    
-				    <script type="text/javascript">
+				    <script>
 				    
-			           $("#file-input").change(function () {
-				            if (this.files && this.files[0]) {
-				                var reader = new FileReader();
-				                reader.onload = function (e) {
-				                    $('#user-image').attr('${pageContext.request.contextPath}/images/user/', e.target.result);
-				                }
-				                reader.readAsDataURL(this.files[0]);
-				            }
-				        });
+					function file_changed(){
+						var selectedFile = document.getElementById('input').files[0];
+						var img = document.getElementById('img')
+
+						var reader = new FileReader();
+						reader.onload = function(){
+							img.src = this.result
+						}
+						reader.readAsDataURL(selectedFile);
+					}
 			         
 			        </script>
 				    
@@ -128,7 +141,9 @@
                       <div class="form-group">
                         <label class="form-control-label" for="input-password">Contraseña</label>
                         <input type="password" id="password" name="password" class="form-control form-control-alternative" placeholder="Contraseña" value="${user.password}">                      
-                        <i class="far fa-eye" id="togglePassword"></i>								
+						<div class="eye">
+							<i class="far fa-eye" id="togglePassword"></i>
+						</div>								
                       </div>
                     </div>
                     
@@ -159,9 +174,42 @@
 	<div class="htc__login__register bg__white ptb--150">
     	<div class="container">
     		<div class="row">
+
+
+			<c:choose>
+				<c:when test="${favorites_user.size() > '0'}">
+				
+					<div class="row">
+						<h2 class="titles_user">Articulos favoritos</h2>
+						
+						<c:forEach items="${favorites_user}" var="product">
+								<!-- Start Single Product -->
+								<jsp:include page="/WEB-INF/html/Single-product.jsp">
+									<jsp:param value="${product.first.price}" name="price"/>
+									<jsp:param value="${product.first.title}" name="title"/>
+									<jsp:param value="${product.first.currency}" name="currency"/>
+									<jsp:param value="${product.first.id}" name="id"/>
+									<jsp:param value="${product.first.idu}" name="idu"/>
+									<jsp:param value="${product.first.soldout}" name="soldout"/>
+									<jsp:param value="${product.first.image}" name="image"/>
+								<jsp:param value="${product.first.rapido}" name="rapido"/>
+									<jsp:param value="${product.second.size()}" name="favorites"/>
+								<jsp:param value="${product.second.contains(user)}" name="favorite_user"/>
+									
+								</jsp:include>
+								<!-- End Single Product -->
+						</c:forEach>
+					</div>
+						
+				</c:when>	
+				</c:choose>
+
+
+
+
 				<h2 class="titles_user">Articulos a la venta</h2>
 				
-				<c:forEach items="${products_user}" var="product">
+				<c:forEach items="${products_user_sale}" var="product">
                  	<!-- Start Single Product -->
  		        	<jsp:include page="/WEB-INF/html/Single-product.jsp">
            				<jsp:param value="${product.first.price}" name="price"/>
@@ -175,6 +223,7 @@
            				<jsp:param value="${product.second.size()}" name="favorites"/>
 						<jsp:param value="${product.second.contains(user)}" name="favorite_user"/>
        				</jsp:include>
+       				
                   	<!-- End Single Product -->
 				</c:forEach>
 				
@@ -192,35 +241,35 @@
 				</div>
 				
 			</div>
-			
-			
-           <c:choose>
-    		<c:when test="${favorites_user.size() > '0'}">
-    		
-				<div class="row">
-					<h2 class="titles_user">Articulos favoritos</h2>
-					
-					<c:forEach items="${favorites_user}" var="product">
-	                 	<!-- Start Single Product -->
-	 		        	<jsp:include page="/WEB-INF/html/Single-product.jsp">
-	           				<jsp:param value="${product.first.price}" name="price"/>
-	           				<jsp:param value="${product.first.title}" name="title"/>
-	           				<jsp:param value="${product.first.currency}" name="currency"/>
-	           				<jsp:param value="${product.first.id}" name="id"/>
-	           				<jsp:param value="${product.first.idu}" name="idu"/>
-	           				<jsp:param value="${product.first.soldout}" name="soldout"/>
-	 		        		<jsp:param value="${product.first.image}" name="image"/>
-							<jsp:param value="${product.first.rapido}" name="rapido"/>
-	           				<jsp:param value="${product.second.size()}" name="favorites"/>
-							<jsp:param value="${product.second.contains(user)}" name="favorite_user"/>
-	           				
-	       				</jsp:include>
-	                  	<!-- End Single Product -->
-					</c:forEach>
-				</div>
-    			 
-    		</c:when>	
-    		</c:choose>
+
+				
+			<c:choose>
+				<c:when test="${products_user_sold.size() > '0'}">
+				
+					<div class="row">
+						<h2 class="titles_user">Articulos vendidos</h2>
+						
+						<c:forEach items="${products_user_sold}" var="product">
+							 <!-- Start Single Product -->
+							 <jsp:include page="/WEB-INF/html/Single-product.jsp">
+								   <jsp:param value="${product.first.price}" name="price"/>
+								   <jsp:param value="${product.first.title}" name="title"/>
+								   <jsp:param value="${product.first.currency}" name="currency"/>
+								   <jsp:param value="${product.first.id}" name="id"/>
+								   <jsp:param value="${product.first.idu}" name="idu"/>
+								   <jsp:param value="${product.first.soldout}" name="soldout"/>
+								 <jsp:param value="${product.first.image}" name="image"/>
+								<jsp:param value="${product.first.rapido}" name="rapido"/>
+								   <jsp:param value="${product.second.size()}" name="favorites"/>
+								<jsp:param value="${product.second.contains(user)}" name="favorite_user"/>
+								   
+							   </jsp:include>
+							  <!-- End Single Product -->
+						</c:forEach>
+					</div>
+					 
+				</c:when>	
+			</c:choose>
 			
 			
 			
@@ -248,7 +297,7 @@
 	                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 				</div>
 				<div class="modal-body">
-					<p>¿Realmente desea borrar su perfil? Este proeso no tendrá vuelta atras.</p>
+					<p>¿Realmente desea borrar su perfil? Este proceso no tendrá vuelta atras.</p>
 				</div>
 				<div class="modal-footer justify-content-center">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -258,6 +307,9 @@
 		</div>
 	</div>     
     <!-- END QUICKVIEW DELETE -->
+
+
+
        
 
 </body>

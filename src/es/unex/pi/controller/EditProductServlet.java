@@ -159,56 +159,66 @@ public class EditProductServlet extends HttpServlet {
 		}
 		
 		Product product = productDao.get(id);
-		
-		if(!name.equals(""))
-			product.setTitle(name);
-		if(!description.equals(""))
-			product.setDescription(description);
-		if(!numeroS.equals(""))
-			product.setStock(numero);
-		if(!precioS.equals(""))
-			product.setPrice(precio);
-		if(!moneda.equals(""))
-			product.setCurrency(characterCurrency(moneda));
-		if(!categoria.equals(""))
-			product.setCategory(categoria);
-		if(estado.equals("En venta"))
-			product.setSoldout(0);
-		if(estado.equals("Vendido"))
-			product.setSoldout(1);
-		if(rapido != null && rapido.equals("No"))
-			product.setRapido("no");
-		if(rapido != null && rapido.equals("Si"))
-			product.setRapido("yes");
-		product.setImage(fileName);
-
-		
 		Map<String, String> messages = new HashMap<String, String>();
-
-		if(!ProductValidation.validateProduct(product ,messages)) {
+		
+		if(product.getIdu() == user.getId()) { // TODO cambio esto 
 			
-			boolean save = productDao.save(product);
+			System.out.println("aqui");
 			
-			if(save) {
-				logger.info("EditProductServlet : Producto guardado");
-				response.sendRedirect("UserServlet.do");
-			}else {
-				logger.info("EditProductServlet : Producto no guardado");
-				messages.put("register", "El guardado no pudo llevarse a cabo");
+			if(!name.equals(""))
+				product.setTitle(name);
+			if(!description.equals(""))
+				product.setDescription(description);
+			if(!numeroS.equals(""))
+				product.setStock(numero);
+			if(!precioS.equals(""))
+				product.setPrice(precio);
+			if(!moneda.equals(""))
+				product.setCurrency(characterCurrency(moneda));
+			if(!categoria.equals(""))
+				product.setCategory(categoria);
+			if(estado.equals("En venta"))
+				product.setSoldout(0);
+			if(estado.equals("Vendido"))
+				product.setSoldout(1);
+			if(rapido != null && rapido.equals("No"))
+				product.setRapido("no");
+			if(rapido != null && rapido.equals("Si"))
+				product.setRapido("yes");
+			product.setImage(fileName);
+		
+	
+			if(!ProductValidation.validateProduct(product ,messages)) {
+				
+				boolean save = productDao.save(product);
+				
+				if(save) {
+					logger.info("EditProductServlet : Producto guardado");
+					response.sendRedirect("UserServlet.do");
+				}else {
+					logger.info("EditProductServlet : Producto no guardado");
+					messages.put("register", "El guardado no pudo llevarse a cabo");
+					request.setAttribute("messages", messages);
+					RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/html/EditProduct.jsp");
+					view.forward(request, response);
+				}
+				
+			}
+			else {
+		
+				logger.info("EditProductServlet : Producto no ha podido guardarse");
 				request.setAttribute("messages", messages);
 				RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/html/EditProduct.jsp");
 				view.forward(request, response);
 			}
-			
-		}
-		else {
-	
+		
+		}else {
 			logger.info("EditProductServlet : Producto no ha podido guardarse");
+			messages.put("propiedad", "Producto no es de tu propiedad, no se puede editar");
 			request.setAttribute("messages", messages);
 			RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/html/EditProduct.jsp");
 			view.forward(request, response);
 		}
-		
 	}
 
 }

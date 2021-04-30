@@ -484,6 +484,13 @@ togglePassword.addEventListener('click', function (e) {
     this.classList.toggle('fa-eye-slash');
 });
 
+var button = document.getElementById('change-phrase'),
+    content = document.getElementById('phrase');
+
+button.onclick = function() {
+    content.innerHTML = 'Your new phrase';
+};
+	
 
 
 

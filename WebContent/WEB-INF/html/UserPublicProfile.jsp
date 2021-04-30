@@ -29,9 +29,9 @@
 	<div class="container mt-5 d-flex justify-content-center">
 	    <div class="card p-3">
 	        <div class="d-flex align-items-center">
-	            <div class="image"> <img src="${pageContext.request.contextPath}/images/user/${user.image}" class="rounded" width="180"> </div>
+	            <div class="image"> <img src="${pageContext.request.contextPath}/images/user/${user_public.image}" class="rounded" width="180"> </div>
 	            <div class="ml-3 w-100">
-	                <h4 class="mb-0 mt-0 username_profile">${user.username}</h4> <span class="email_profile">${user.email}</span>
+	                <h4 class="mb-0 mt-0 username_profile">${user_public.username}</h4> <span class="email_profile">${user_public.email}</span>
 	                <div class="p-2 mt-2 d-flex justify-content-between rounded text-white stats">
 	                    <div class="d-flex flex-column"> <span class="articles">En venta</span> <span class="number_articles">${user_venta}</span> </div>
 	                    <div class="d-flex flex-column"> <span class="vendidos">Vendidos</span> <span class="number_vendidos">${user_vendido}</span> </div>

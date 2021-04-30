@@ -54,6 +54,28 @@ public interface ProductDAO {
 	 * @return List of all the product from the database that belong to a user
 	 */	
 	public List<Product> getAllByUser(long idu);
+
+
+	/**
+	 * Gets all the product from sale the database that belong to a user.
+	 * 
+	 * @param idu
+	 *            User identifier.
+	 * 
+	 * @return List of all the product sale from the database that belong to a user
+	 */	
+	public List<Product> getAllByUserSale(long idu);
+
+
+	/**
+	 * Gets all the product sold from the database that belong to a user.
+	 * 
+	 * @param idu
+	 *            User identifier.
+	 * 
+	 * @return List of all the product sold from the database that belong to a user
+	 */	
+	public List<Product> getAllByUserSold(long idu);
 	
 	
 	/**
