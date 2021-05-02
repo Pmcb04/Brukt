@@ -256,10 +256,10 @@ public class UserServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
 				
+		List<User> usersFavorites = new ArrayList<User>();
+		List<Product> favorites_user = new ArrayList <Product>();
 		List<Product> products_user_sale = new ArrayList <Product>();
 		List<Product> products_user_sold = new ArrayList <Product>();
-		List<Product> favorites_user = new ArrayList <Product>();
-		List<User> usersFavorites = new ArrayList<User>();
 		List<DoubleClass<Product, List<User>>> favoritesUserList = new ArrayList<DoubleClass<Product, List<User>>>();
 		List<DoubleClass<Product, List<User>>> productsSaleUserList = new ArrayList<DoubleClass<Product, List<User>>>();
 		List<DoubleClass<Product, List<User>>> productsSoldUserList = new ArrayList<DoubleClass<Product, List<User>>>();

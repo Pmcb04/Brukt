@@ -1,6 +1,8 @@
 package es.unex.pi.model;
 
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement
 public class Product {
 
 	private long id;
@@ -21,7 +23,6 @@ public class Product {
 	public void setSoldout(int soldout) {
 		this.soldout = soldout;
 	}
-	
 
 	public String getCategory() {
 		return category;

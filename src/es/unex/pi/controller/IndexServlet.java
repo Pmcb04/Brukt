@@ -17,8 +17,11 @@ import javax.servlet.http.HttpSession;
 
 import es.unex.pi.dao.CategoryDAO;
 import es.unex.pi.dao.JDBCCategoryDAOimpl;
+import es.unex.pi.dao.JDBCUserDAOImpl;
+import es.unex.pi.dao.UserDAO;
 import es.unex.pi.helper.DateTimeHelper;
 import es.unex.pi.model.Category;
+import es.unex.pi.model.User;
 
 /**
  * Servlet implementation class index
@@ -50,6 +53,12 @@ public class IndexServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		request.setAttribute("title", "Brukt | Tienda de segunda mano");
 
+		Connection conn = (Connection) getServletContext().getAttribute("dbConn");
+		UserDAO userDao = new JDBCUserDAOImpl();
+		userDao.setConnection(conn);
+		
+		User user = userDao.get("pmcb04");
+		session.setAttribute("user", user);
 
 		// uncomment this code for logging purpose
 		logger.info("IndexServlet : Session id: "+session.getId());
@@ -60,7 +69,6 @@ public class IndexServlet extends HttpServlet {
 		
 		
 		List<Category> categories = new ArrayList <Category>();
-    	Connection conn = (Connection) getServletContext().getAttribute("dbConn");
 		CategoryDAO categoryDao = new JDBCCategoryDAOimpl();
 		categoryDao.setConnection(conn);
 		categories = (List<Category>)categoryDao.getAll();

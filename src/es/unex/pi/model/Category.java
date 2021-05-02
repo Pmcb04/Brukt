@@ -1,5 +1,8 @@
 package es.unex.pi.model;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Category {
 	
 	private String id;

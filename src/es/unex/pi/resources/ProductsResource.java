@@ -43,8 +43,6 @@ public class ProductsResource {
 	  @Produces(MediaType.APPLICATION_JSON)
 	  public List<Product> getOrdersJSON(@Context HttpServletRequest request) {
 
-			List<Product> products=null;
-		  
 		  // Complete the code to implement this method.
 		  
 		  //1. You must connect to the database by using an ProductDAO object.
@@ -74,7 +72,6 @@ public class ProductsResource {
 	  public Product getOrderJSON(@PathParam("productid") long productid,
 			  					@Context HttpServletRequest request) {
 
-		Product product = null;
 		  //Complete the code to implement this method.
 		  
 		  //1. You must connect to the database by using an ProductDAO object.
@@ -94,7 +91,7 @@ public class ProductsResource {
 		  //   otherwise 
 		  //       throw a CustomNotFoundException with the id of the order not found
 			
-			if((productDao.get(productid) != null && (user.getUsername().equals(productDao.get(productid).getTitle())) || user.getRole().equals("Manager"))) return productDao.get(productid);
+			if(productDao.get(productid) != null && (user.getRole().equals("Manager") || user.getId() == productDao.get(productid).getIdu())) return productDao.get(productid);
 			else throw new CustomNotFoundException("Product (" + productid + ") is not found");
 	  }
 	  
@@ -123,9 +120,8 @@ public class ProductsResource {
 		
 		Map<String, String> messages = new HashMap<String, String>();
 
-		if ((!ProductValidation.validateProduct(newProduct, messages))
-			||((user.getId() != newProduct.getIdu())) // TODO: ¿es correcto?
-			  &&(!user.getRole().equals("Manager")))
+		if (!ProductValidation.validateProduct(newProduct, messages)
+			||user.getId() != newProduct.getIdu())
 			    throw new CustomBadRequestException("Errors in parameters");
 
 
@@ -170,21 +166,20 @@ public class ProductsResource {
 		Response res;
 		
         Product product = new Product();
-        // TODO: ¿De donde se saca esto?
-        /*
-        product.setName(formParams.getFirst("name"));
-        product.setEmail(formParams.getFirst("email"));
-        product.setTel(formParams.getFirst("tel"));
-        product.setSize(formParams.getFirst("size"));
-        product.setType(formParams.getFirst("type"));
-        product.setDelivery(formParams.getFirst("delivery"));
-        product.setComments(formParams.getFirst("comments"));
-        */
+
+        product.setTitle(formParams.getFirst("title"));
+        product.setDescription(formParams.getFirst("description"));
+        product.setCategory(formParams.getFirst("category"));
+        product.setStock(Integer.parseInt(formParams.getFirst("stock")));
+        product.setCurrency(formParams.getFirst("currency"));
+        product.setPrice(Integer.parseInt(formParams.getFirst("price")));
+        product.setImage(formParams.getFirst("image"));
+        product.setRapido(formParams.getFirst("rapido"));
+
 
 		Map<String, String> messages = new HashMap<String, String>();
-		if ((!ProductValidation.validateProduct(product, messages))
-			||((user.getId() != product.getIdu())) // TODO: ¿es correcto?
-			  &&(!user.getRole().equals("Manager")))
+		if (ProductValidation.validateProduct(product, messages) // hay errores
+			|| user.getId() != product.getIdu())
 			    throw new CustomBadRequestException("Errors in parameters");
 		
 		//save order in DB
@@ -231,24 +226,25 @@ public class ProductsResource {
 					
 		  //We check that the product exists
 		  Product product = productDao.get(productUpdate.getId());
-		  if ((product != null)
-		      &&((user.getId() == product.getIdu()))
-		        ||(user.getRole().equals("Manager"))){
+		  if ((product != null) &&(user.getId() == product.getIdu())){
 					if (product.getId()!=productid) throw new CustomBadRequestException("Error in id");
 					else {
 						
-						// 3. If the name of the product is valid
+						// 3. If the product is valid
 						//       update the product
 						//    otherwise
 						//       throw a CustomBadRequestException   
 						
 						Map <String, String> messages = new HashMap<String, String>();
-						if(ProductValidation.validateProduct(productUpdate, messages)) productDao.save(productUpdate);
+						if(!ProductValidation.validateProduct(productUpdate, messages)){ // no hay errores
+							productDao.save(productUpdate);
+							response = Response.noContent().build(); // 204 no content
+						}
 						else throw new CustomBadRequestException("Errors in parameters");
 						
 					}
 				}
-		  else throw new WebApplicationException(Response.Status.NOT_FOUND);			
+		  else throw new WebApplicationException(Response.Status.NOT_FOUND); // 404 not found			
 		  
 		  return response;
 		}
@@ -275,9 +271,8 @@ public class ProductsResource {
 			User user = (User) session.getAttribute("user");
 		
 		Product product = productDao.get(productid);
-		if ((product != null)
-			&&((user.getId() == product.getIdu()))
-			  ||(user.getRole().equals("Manager"))){
+		
+		if ((product != null)&&(user.getId() == product.getIdu())){
 				
 				//3. Delete the product
 				productDao.delete(productid);
@@ -287,5 +282,6 @@ public class ProductsResource {
 		else throw new CustomBadRequestException("Error in user or id");		
 			
 	  }
+	  
 	  
 } 

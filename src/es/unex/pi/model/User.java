@@ -2,6 +2,9 @@ package es.unex.pi.model;
 
 import java.util.Objects;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class User {
 
 	private long id;
