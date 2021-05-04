@@ -139,4 +139,16 @@ public interface ProductDAO {
 	 * @return True if the operation was made and False if the operation failed.
 	 */
 	public boolean delete(long id);
+
+	/**
+	 * Check if the product exist in the database
+	 * 
+	 * @param id
+	 *            long id
+	 * 
+	 * @return True if the product exists False if the product not exits.
+	 */
+	public boolean exist(long id); 
+
+
 }

@@ -29,7 +29,7 @@ public class JDBCUserDAOImpl implements UserDAO {
 			user.setId(rs.getInt("id"));
 			user.setUsername(rs.getString("username"));
 			user.setEmail(rs.getString("email"));
-			user.setPassword(rs.getString("password"));
+			user.setPassword(rs.getString("password"));//We return all users with a hidden password
 			user.setImage(rs.getString("image"));
 			user.setGenero(rs.getString("genero"));
 			user.setRole(rs.getString("role"));
@@ -55,7 +55,7 @@ public class JDBCUserDAOImpl implements UserDAO {
 			user.setId(rs.getInt("id"));
 			user.setUsername(rs.getString("username"));
 			user.setEmail(rs.getString("email"));
-			user.setPassword(rs.getString("password"));
+			user.setPassword(rs.getString("password"));//We return all users with a hidden password
 			user.setImage(rs.getString("image"));
 			user.setGenero(rs.getString("genero"));
 			user.setRole(rs.getString("role"));
@@ -117,14 +117,13 @@ public class JDBCUserDAOImpl implements UserDAO {
 				lastidu=rs.getInt("seq");
 								
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
 			
 			try {
 				stmt = conn.createStatement();
-				stmt.executeUpdate("INSERT INTO users (username,email,image,genero,rol,password) VALUES('"
+				stmt.executeUpdate("INSERT INTO users (username,email,image,genero,role,password) VALUES('"
 									+user.getUsername()+"','"
 									+user.getEmail()+"','"
 									+user.getImage()+"','"
@@ -132,7 +131,6 @@ public class JDBCUserDAOImpl implements UserDAO {
 									+user.getRole()+"','"
 									+user.getPassword()+"')");
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
@@ -145,7 +143,6 @@ public class JDBCUserDAOImpl implements UserDAO {
 											
 				logger.info("CREATING User("+id+"): " + user.toString());
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			

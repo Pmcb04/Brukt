@@ -468,6 +468,11 @@ public class JDBCProductDAOImpl implements ProductDAO {
 	}
 
 
+	@Override
+	public boolean exist(long id) {
+		return get(id) != null;
+	}
+
 
 	
 }

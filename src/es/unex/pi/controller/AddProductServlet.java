@@ -142,8 +142,7 @@ public class AddProductServlet extends HttpServlet {
 		for (Category category : categories) {
 			if(category.getName().equals(categoria)) categoria = category.getId();
 		}
-				
-		
+
 		Product product = new Product();
 		product.setTitle(name);
 		product.setDescription(description);

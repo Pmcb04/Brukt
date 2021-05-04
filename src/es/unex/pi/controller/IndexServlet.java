@@ -54,12 +54,7 @@ public class IndexServlet extends HttpServlet {
 		request.setAttribute("title", "Brukt | Tienda de segunda mano");
 
 		Connection conn = (Connection) getServletContext().getAttribute("dbConn");
-		UserDAO userDao = new JDBCUserDAOImpl();
-		userDao.setConnection(conn);
 		
-		User user = userDao.get("pmcb04");
-		session.setAttribute("user", user);
-
 		// uncomment this code for logging purpose
 		logger.info("IndexServlet : Session id: "+session.getId());
 		logger.info("IndexServlet : Session new? "+session.isNew());

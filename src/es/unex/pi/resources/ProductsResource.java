@@ -120,12 +120,12 @@ public class ProductsResource {
 		
 		Map<String, String> messages = new HashMap<String, String>();
 
-		if (!ProductValidation.validateProduct(newProduct, messages)
+		if (ProductValidation.validateProduct(newProduct, messages) // si hay errores
 			||user.getId() != newProduct.getIdu())
-			    throw new CustomBadRequestException("Errors in parameters");
+			    throw new CustomBadRequestException("Errors in parameters " + messages.toString());
 
 
-		//save order in DB
+		//save product in DB
 		long id = productDao.add(newProduct);
 
 		res = Response 								//return 201 and Location: /products/newid
@@ -165,25 +165,26 @@ public class ProductsResource {
 		  
 		Response res;
 		
-        Product product = new Product();
+        Product newProduct = new Product();
 
-        product.setTitle(formParams.getFirst("title"));
-        product.setDescription(formParams.getFirst("description"));
-        product.setCategory(formParams.getFirst("category"));
-        product.setStock(Integer.parseInt(formParams.getFirst("stock")));
-        product.setCurrency(formParams.getFirst("currency"));
-        product.setPrice(Integer.parseInt(formParams.getFirst("price")));
-        product.setImage(formParams.getFirst("image"));
-        product.setRapido(formParams.getFirst("rapido"));
+        newProduct.setTitle(formParams.getFirst("title"));
+        newProduct.setDescription(formParams.getFirst("description"));
+        newProduct.setCategory(formParams.getFirst("category"));
+        newProduct.setStock(Integer.parseInt(formParams.getFirst("stock")));
+        newProduct.setCurrency(formParams.getFirst("currency"));
+        newProduct.setPrice(Float.parseFloat(formParams.getFirst("price")));
+        newProduct.setImage(formParams.getFirst("image"));
+        newProduct.setRapido(formParams.getFirst("rapido"));
+		newProduct.setIdu(Long.parseLong(formParams.getFirst("idu")));
 
 
 		Map<String, String> messages = new HashMap<String, String>();
-		if (ProductValidation.validateProduct(product, messages) // hay errores
-			|| user.getId() != product.getIdu())
-			    throw new CustomBadRequestException("Errors in parameters");
+		if (ProductValidation.validateProduct(newProduct, messages) // hay errores
+			|| user.getId() != newProduct.getIdu())
+			    throw new CustomBadRequestException("Errors in parameters : " + messages.toString());
 		
 		//save order in DB
-		long id = productDao.add(product);
+		long id = productDao.add(newProduct);
 
 		res = Response //return 201 and Location: /products/newid
 				   .created(
@@ -240,7 +241,7 @@ public class ProductsResource {
 							productDao.save(productUpdate);
 							response = Response.noContent().build(); // 204 no content
 						}
-						else throw new CustomBadRequestException("Errors in parameters");
+						else throw new CustomBadRequestException("Errors in parameters : " + messages.toString());
 						
 					}
 				}
