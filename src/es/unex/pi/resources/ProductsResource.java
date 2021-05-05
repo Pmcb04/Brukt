@@ -1,6 +1,7 @@
 package es.unex.pi.resources;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,7 +42,7 @@ public class ProductsResource {
 	  
 	  @GET
 	  @Produces(MediaType.APPLICATION_JSON)
-	  public List<Product> getOrdersJSON(@Context HttpServletRequest request) {
+	  public List<Product> getProductsJSON(@Context HttpServletRequest request) {
 
 		  // Complete the code to implement this method.
 		  
@@ -67,9 +68,9 @@ public class ProductsResource {
 	  }
 	  
 	  @GET
-	  @Path("/{productid: [0-9]+}")	  // Complete the path
+	  @Path("/product/{productid: [0-9]+}")	  // Complete the path
 	  @Produces(MediaType.APPLICATION_JSON)
-	  public Product getOrderJSON(@PathParam("productid") long productid,
+	  public Product getProductJSON(@PathParam("productid") long productid,
 			  					@Context HttpServletRequest request) {
 
 		  //Complete the code to implement this method.
@@ -94,6 +95,109 @@ public class ProductsResource {
 			if(productDao.get(productid) != null && (user.getRole().equals("Manager") || user.getId() == productDao.get(productid).getIdu())) return productDao.get(productid);
 			else throw new CustomNotFoundException("Product (" + productid + ") is not found");
 	  }
+
+	  @GET
+	  @Path("/search/title/{searchTitle: [A-Za-zÑñ0-9]+}")	  // Complete the path
+	  @Produces(MediaType.APPLICATION_JSON)
+	  public List<Product> getProductSearchTitleJSON(@PathParam("searchTitle") String search,
+			  					@Context HttpServletRequest request) {
+
+		  //Complete the code to implement this method.
+		  
+		  //1. You must connect to the database by using an ProductDAO object.
+			
+			Connection conn = (Connection) sc.getAttribute("dbConn");
+				
+			ProductDAO productDao = new JDBCProductDAOImpl();
+			productDao.setConnection(conn);
+		
+		  //3. If ((the product exists) && ((it belongs to the current user) || (user is a manager)))
+		  //       return the product
+		  //   otherwise 
+		  //       throw a CustomNotFoundException with the id of the order not found
+			
+			return productDao.getAllBySearchTitle(search);
+	  }
+
+	  @GET
+	  @Path("/search/description/{searchDesc: [A-Za-zÑñ0-9]+}")	  // Complete the path
+	  @Produces(MediaType.APPLICATION_JSON)
+	  public List<Product> getProductSearchDescriptionJSON(@PathParam("searchDesc") String search,
+			  					@Context HttpServletRequest request) {
+
+		  //Complete the code to implement this method.
+		  
+		  //1. You must connect to the database by using an ProductDAO object.
+			
+			Connection conn = (Connection) sc.getAttribute("dbConn");
+				
+			ProductDAO productDao = new JDBCProductDAOImpl();
+			productDao.setConnection(conn);
+		
+		  //3. If ((the product exists) && ((it belongs to the current user) || (user is a manager)))
+		  //       return the product
+		  //   otherwise 
+		  //       throw a CustomNotFoundException with the id of the order not found
+			
+			return productDao.getAllBySearchDescription(search);
+	  }
+
+	  @GET
+	  @Path("/search/all/{searchAll: [A-Za-zÑñ0-9]+}")	  // Complete the path
+	  @Produces(MediaType.APPLICATION_JSON)
+	  public List<Product> getProductSearchAllJSON(@PathParam("searchAll") String search,
+			  					@Context HttpServletRequest request) {
+
+		  //Complete the code to implement this method.
+		  
+		  //1. You must connect to the database by using an ProductDAO object.
+			
+			Connection conn = (Connection) sc.getAttribute("dbConn");
+				
+			ProductDAO productDao = new JDBCProductDAOImpl();
+			productDao.setConnection(conn);
+		
+		  //3. If ((the product exists) && ((it belongs to the current user) || (user is a manager)))
+		  //       return the product
+		  //   otherwise 
+		  //       throw a CustomNotFoundException with the id of the order not found
+			
+			return productDao.getAllBySearchAll(search);
+	  }
+
+	  @GET
+	  @Path("/user/{userid: [0-9]+}")	  // Complete the path
+	  @Produces(MediaType.APPLICATION_JSON)
+	  public List<Product> getUserProductsJSON(@PathParam("userid") long productid,
+			  					@Context HttpServletRequest request) {
+
+		  //Complete the code to implement this method.
+		  
+		  //1. You must connect to the database by using an ProductDAO object.
+			
+			Connection conn = (Connection) sc.getAttribute("dbConn");
+				
+			ProductDAO productDao = new JDBCProductDAOImpl();
+			productDao.setConnection(conn);
+		
+		  //2. You must obtain the user that has logged into the system
+			
+			HttpSession session =  request.getSession();
+			User user = (User) session.getAttribute("user");
+		  
+		  //3. If ((the product exists) && ((it belongs to the current user) || (user is a manager)))
+		  //       return the product
+		  //   otherwise 
+		  //       throw a CustomNotFoundException with the id of the order not found
+		
+			/*
+			if(productDao.get(productid) != null && (user.getRole().equals("Manager") || user.getId() == productDao.get(productid).getIdu())) return productDao.get(productid);
+			else throw new CustomNotFoundException("User with id  (" + productid + ") is not found");*/
+			
+			return new ArrayList<Product>();
+	  }
+
+
 	  
 	 
 	  
@@ -254,7 +358,7 @@ public class ProductsResource {
 
 	@DELETE
 	  @Path("/{productid: [0-9]+}") // Complete the path	  
-	  public Response deleteOrder(@PathParam("productid") long productid,
+	  public Response deleteProduct(@PathParam("productid") long productid,
 			  					  @Context HttpServletRequest request) {
 		  
 		  // Complete the code to implement this method.
@@ -273,7 +377,7 @@ public class ProductsResource {
 		
 		Product product = productDao.get(productid);
 		
-		if ((product != null)&&(user.getId() == product.getIdu())){
+		if ((product != null)&&(user.getId() == product.getIdu() || user.getRole().equals("Manager"))){
 				
 				//3. Delete the product
 				productDao.delete(productid);

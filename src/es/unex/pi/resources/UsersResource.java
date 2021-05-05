@@ -70,9 +70,9 @@ public class UsersResource {
 	  }
 	  
 	  @GET
-	  @Path("/{userid: [0-9]+}")	  // Complete the path
+	  @Path("/id/{userid: [0-9]+}")	  // Complete the path
 	  @Produces(MediaType.APPLICATION_JSON)
-	  public User getUserJSON(@PathParam("userid") long userid,
+	  public User getUserIdJSON(@PathParam("userid") long userid,
 			  					@Context HttpServletRequest request) {
 
 		  //Complete the code to implement this method.
@@ -94,8 +94,38 @@ public class UsersResource {
 		  //   otherwise 
 		  //       throw a CustomNotFoundException with the id of the order not found
 			
-			if(userDao.get(userid) != null && (user.getRole().equals("Manager") || user.getId() == userDao.get(userid).getId())) return userDao.get(userid);
-			else throw new CustomNotFoundException("User (" + userid + ") is not found");
+			if(userDao.get(userid) != null && (user.getRole().equals("Manager") || user.getId() == userid)) return userDao.get(userid);
+			else throw new CustomNotFoundException("User with id (" + userid + ") is not found");
+	  }
+
+
+	  @GET
+	  @Path("/username/{userusername: [A-Za-z0-9]+}")	  // Complete the path
+	  @Produces(MediaType.APPLICATION_JSON)
+	  public User getUserUsenameJSON(@PathParam("userusername") String userUsername,
+			  					@Context HttpServletRequest request) {
+
+		  //Complete the code to implement this method.
+		  
+		  //1. You must connect to the database by using an UserDao object.
+			
+			Connection conn = (Connection) sc.getAttribute("dbConn");
+				
+			UserDAO userDao = new JDBCUserDAOImpl();
+			userDao.setConnection(conn);
+		
+		  //2. You must obtain the user that has logged into the system
+			
+			HttpSession session =  request.getSession();
+			User user = (User) session.getAttribute("user");
+		  
+		  //3. If ((the user exists) && ((it belongs to the current user) || (user is a manager)))
+		  //       return the user
+		  //   otherwise 
+		  //       throw a CustomNotFoundException with the id of the order not found
+			
+			if(userDao.get(userUsername) != null && (user.getRole().equals("Manager") || user.getUsername().equals(userUsername))) return userDao.get(userUsername);
+			else throw new CustomNotFoundException("User with username (" + userUsername + ") is not found");
 	  }
 	  
 	 

@@ -18,7 +18,7 @@ import javax.servlet.http.HttpSession;
 //Comlete the urlpattern for this Filter
 
 @WebFilter(dispatcherTypes = {DispatcherType.REQUEST},
-			urlPatterns = {"/user/*, /product/*, /favorite/*"})
+			urlPatterns = {"/user/*", "/product/*", "/favorite/*"})
 public class LoginFilter implements Filter{
 
 	private FilterConfig fc;

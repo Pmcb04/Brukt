@@ -23,7 +23,7 @@ public class JDBCCategoryDAOimpl implements CategoryDAO{
 		
 		try {
 			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM categories WHERE id="+id);			 
+			ResultSet rs = stmt.executeQuery("SELECT * FROM categories WHERE id='"+id + "'");			 
 			if (!rs.next()) return null; 
 			category = new Category();	 
 			category.setId(rs.getString("id"));
@@ -45,7 +45,7 @@ public class JDBCCategoryDAOimpl implements CategoryDAO{
 		
 		try {
 			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM categories WHERE name = "+name);		 
+			ResultSet rs = stmt.executeQuery("SELECT * FROM categories WHERE name='"+name + "'");		 
 			if (!rs.next()) return null; 
 			category = new Category();	 
 			category.setId(rs.getString("id"));
@@ -114,7 +114,7 @@ public class JDBCCategoryDAOimpl implements CategoryDAO{
 			
 			try {
 				stmt = conn.createStatement();
-				stmt.executeUpdate("INSERT INTO users (id,name,image) VALUES('"
+				stmt.executeUpdate("INSERT INTO categories (id,name,image) VALUES('"
 									+category.getId()+"','"
 									+category.getName()+"','"
 									+category.getImage()+"')");
@@ -150,7 +150,7 @@ public class JDBCCategoryDAOimpl implements CategoryDAO{
 				stmt = conn.createStatement();
 				stmt.executeUpdate("UPDATE users SET name='"+category.getName()
 									+"', image='"+category.getImage()
-									+"' WHERE id = "+category.getId());
+									+"' WHERE id ='"+category.getId() + "'");
 				logger.info("updating " + category.toString() );
 				done= true;
 			} catch (SQLException e) {
@@ -172,7 +172,7 @@ public class JDBCCategoryDAOimpl implements CategoryDAO{
 			Statement stmt;
 			try {
 				stmt = conn.createStatement();
-				stmt.executeUpdate("DELETE FROM categories WHERE id ="+id);
+				stmt.executeUpdate("DELETE FROM categories WHERE id ='"+id+"'");
 				logger.info("deleting Category: "+id);
 				done= true;
 			} catch (SQLException e) {

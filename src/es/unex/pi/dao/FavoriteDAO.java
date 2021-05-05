@@ -20,6 +20,28 @@ public interface FavoriteDAO {
 	
 
 	/**
+	 * Return the favorite in the database
+	 * 
+	 * @param iduser
+	 *            long idUser
+	 * @param idproduct
+	 * 			  long idProduct
+	 * 
+	 * @return True if the favorite exists False if the favorite not exits.
+	 */
+	public Favorite get(long idUser, long idProduct); 
+
+
+	/**
+	 * Gets all the favorites list from the database.
+	 * 
+	 * 
+	 * @return List of all Favorite from the database.
+	 */
+	public List<Favorite> getAll();
+	
+
+	/**
 	 * Gets all the product list of user that is favorites from the database.
 	 * 
 	 * @param int idu
@@ -86,4 +108,16 @@ public interface FavoriteDAO {
 	public boolean delete(Favorite favorite);
 	
 	
+	/**
+	 * Check if the favorite exits in the database
+	 * 
+	 * @param iduser
+	 *            long idUser
+	 * @param idproduct
+	 * 			  long idProduct
+	 * 
+	 * @return True if the favorite exists False if the favorite not exits.
+	 */
+	public boolean exist(long idUser, long idProduct); 
+
 }

@@ -27,7 +27,7 @@
                 <div class="row">
                     <div class="col-md-6 col-md-offset-3">
                         <ul class="login__register__menu" role="tablist">
-                            <li role="presentation" class="register active"><p role="tab" data-toggle="tab">Editar usuario</p></li>
+                            <li role="presentation" class="register active"><p role="tab" data-toggle="tab">Editar producto</p></li>
                         </ul>
                     </div>
                 </div>

@@ -24,7 +24,7 @@ public class JDBCCommentDAOimpl implements CommentDAO{
 		
 		try {
 			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM comments WHERE username='"+ username + "' and idp='" + idp + "'");			 
+			ResultSet rs = stmt.executeQuery("SELECT * FROM comments WHERE username='"+ username + "' and idp=" + idp);			 
 			if (!rs.next()) return null; 
 			comment = new Comment();	 
 			comment.setIdp(Integer.parseInt(rs.getString("idp")));
@@ -49,7 +49,7 @@ public class JDBCCommentDAOimpl implements CommentDAO{
 		ArrayList<Comment> comments = new ArrayList<Comment>();
 		try {
 			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM comments WHERE rating = "+ rating + " and idp= '" + idp + "'");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM comments WHERE rating = "+ rating + " and idp=" + idp);
 
 			while (rs.next()) {
 				Comment comment = new Comment();
@@ -80,7 +80,7 @@ public class JDBCCommentDAOimpl implements CommentDAO{
 		ArrayList<Comment> comments = new ArrayList<Comment>();
 		try {
 			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM comments WHERE idp = "+ idp);
+			ResultSet rs = stmt.executeQuery("SELECT * FROM comments WHERE idp ="+ idp);
 
 			while (rs.next()) {
 				Comment comment = new Comment();
@@ -112,7 +112,7 @@ public class JDBCCommentDAOimpl implements CommentDAO{
 			Statement stmt;
 			ResultSet rs;
 			stmt = conn.createStatement();
-			rs = stmt.executeQuery("SELECT * FROM categories");
+			rs = stmt.executeQuery("SELECT * FROM comments");
 			while ( rs.next() ) {
 				Comment comment = new Comment();
 				comment.setIdp(Integer.parseInt(rs.getString("idp")));
@@ -191,7 +191,7 @@ public class JDBCCommentDAOimpl implements CommentDAO{
 			Statement stmt;
 			try {
 				stmt = conn.createStatement();
-				stmt.executeUpdate("DELETE FROM comments WHERE username = '"+username + "' and idp='" + idp + "'");
+				stmt.executeUpdate("DELETE FROM comments WHERE username = '"+username + "' and idp=" + idp);
 				logger.info("deleting Comment: "+username);
 				done= true;
 			} catch (SQLException e) {

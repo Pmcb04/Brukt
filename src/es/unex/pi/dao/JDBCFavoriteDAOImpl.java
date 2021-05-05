@@ -25,6 +25,64 @@ public class JDBCFavoriteDAOImpl implements FavoriteDAO{
 	}
 
 	@Override
+	public Favorite get(long idUser, long idProduct) {
+		if (conn == null) return null;
+		
+		Favorite favorite = null;		
+		
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM favorites WHERE idp=" + idProduct + " and idu=" + idUser);			 
+			if (!rs.next()) return null; 
+		    favorite = new Favorite();
+			favorite.setIdp(rs.getInt("idp"));
+			favorite.setIdu(rs.getInt("idu"));
+			logger.info("fetching Favorite -> " + favorite.toString());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return favorite;
+	}
+
+
+	@Override
+	public List<Favorite> getAll() {
+		
+		if (conn == null)
+			return null;
+
+		ArrayList<Favorite> favorites = new ArrayList<Favorite>();
+		try {
+			Statement stmt = conn.createStatement();
+			ProductDAO productDao = new JDBCProductDAOImpl();
+			productDao.setConnection(conn);
+			UserDAO userDao = new JDBCUserDAOImpl();
+			userDao.setConnection(conn);
+			ResultSet rs = stmt.executeQuery("SELECT * FROM favorites");
+
+			while (rs.next()) {
+				Product product = productDao.get(rs.getInt("idp"));
+				User user = userDao.get(rs.getInt("idu"));
+				Favorite favorite = new Favorite();
+				favorite.setIdp(product.getId());
+				favorite.setIdu(user.getId());
+				favorites.add(favorite);
+				
+				logger.info("fetching favorite: "+favorite.toString());				
+				
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return favorites;
+	}
+
+
+	@Override
 	public List<Product> getAllByUser(long idu) {
 		
 		if (conn == null)
@@ -88,7 +146,7 @@ public class JDBCFavoriteDAOImpl implements FavoriteDAO{
 		if (conn == null)
 			return null;
 
-		ArrayList<Favorite> products = new ArrayList<Favorite>();
+		ArrayList<Favorite> favorites = new ArrayList<Favorite>();
 		try {
 			Statement stmt = conn.createStatement();
 			ProductDAO productDao = new JDBCProductDAOImpl();
@@ -100,7 +158,7 @@ public class JDBCFavoriteDAOImpl implements FavoriteDAO{
 				Favorite favorite = new Favorite();
 				favorite.setIdp(product.getId());
 				favorite.setIdu(idu);
-				products.add(favorite);
+				favorites.add(favorite);
 				
 				logger.info("fetching product: "+product.toString());				
 				
@@ -111,7 +169,7 @@ public class JDBCFavoriteDAOImpl implements FavoriteDAO{
 			e.printStackTrace();
 		}
 
-		return products;
+		return favorites;
 	}
 
 	@Override
@@ -120,7 +178,7 @@ public class JDBCFavoriteDAOImpl implements FavoriteDAO{
 		if (conn == null)
 			return null;
 
-		ArrayList<Favorite> users = new ArrayList<Favorite>();
+		ArrayList<Favorite> favorites = new ArrayList<Favorite>();
 		try {
 			Statement stmt = conn.createStatement();
 			UserDAO userDao = new JDBCUserDAOImpl();
@@ -132,7 +190,7 @@ public class JDBCFavoriteDAOImpl implements FavoriteDAO{
 				Favorite favorite = new Favorite();
 				favorite.setIdp(idp);
 				favorite.setIdu(user.getId());
-				users.add(favorite);
+				favorites.add(favorite);
 				logger.info("fetching product: "+user.toString());				
 			}
 
@@ -141,7 +199,7 @@ public class JDBCFavoriteDAOImpl implements FavoriteDAO{
 			e.printStackTrace();
 		}
 		
-		return users;
+		return favorites;
 	}
 
 	
@@ -211,6 +269,13 @@ public class JDBCFavoriteDAOImpl implements FavoriteDAO{
 		}
 		return done;
 	}
+
+
+	@Override
+	public boolean exist(long idUser, long idProduct) {
+		return get(idUser, idProduct) != null;
+	}
+
 
 
 
