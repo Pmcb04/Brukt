@@ -40,7 +40,6 @@ public class RegisterUserServlet extends HttpServlet {
      */
     public RegisterUserServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
     
     

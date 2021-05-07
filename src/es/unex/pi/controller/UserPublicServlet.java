@@ -37,7 +37,6 @@ public class UserPublicServlet extends HttpServlet {
      */
     public UserPublicServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**

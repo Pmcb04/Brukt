@@ -1,10 +1,7 @@
 package es.unex.pi.resources;
 
 import java.sql.Connection;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -13,11 +10,9 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
@@ -31,7 +26,6 @@ import es.unex.pi.dao.JDBCUserDAOImpl;
 import es.unex.pi.dao.ProductDAO;
 import es.unex.pi.dao.UserDAO;
 import es.unex.pi.model.Favorite;
-import es.unex.pi.model.PasswordValidation;
 import es.unex.pi.model.Product;
 import es.unex.pi.model.User;
 import es.unex.pi.resources.exceptions.CustomBadRequestException;
@@ -118,11 +112,6 @@ public class FavoritesResource {
 
 			ProductDAO productDao = new JDBCProductDAOImpl();
 			productDao.setConnection(conn);
-		
-		  //2. You must obtain the user that has logged into the system
-			
-			HttpSession session =  request.getSession();
-			User user = (User) session.getAttribute("user");
 		  
 		  //3. If ((the user exists) && ((it belongs to the current user) || (user is a manager)))
 		  //       return the user
@@ -164,11 +153,14 @@ public class FavoritesResource {
 		
 		Response res;
 
-		User userFav = userDao.get(newFavorite.getIdu());
 		Product productFav = productDao.get(newFavorite.getIdp());
 
-		if (favoriteDao.exist(newFavorite.getIdu(), newFavorite.getIdp()) || userFav == null || productFav == null
-            || user.getId() != newFavorite.getIdu())
+		System.out.println("new Favorite idu " + newFavorite.getIdu());
+		System.out.println("user idu " + user.getId());
+		System.out.println("new Favorite idp " + newFavorite.getIdp());
+
+		if (user == null || productFav == null || user.getId() == productFav.getIdu()
+            || favoriteDao.exist(newFavorite.getIdu(), newFavorite.getIdp()) )
 			    throw new CustomBadRequestException("Errors in parameters ");
 
 

@@ -97,12 +97,25 @@ public interface ProductDAO {
 	 * @return List of all the product from the database that contain a text either in the title or in the description.
 	 */	
 	public List<Product> getAllBySearchAll(String search);
+
+	/**
+	 * Gets all the products from the database with category idCategory.
+	 * 
+	 * @param idCategory
+	 *            Search string .
+	 * 
+	 * @return List of all the product from the database that is the category with id idCategory.
+	 */	
+	public List<Product> getAllByCategory(String idCategory);
+
 	
 	/**
 	 * Gets all the product from the database that contain a text either in the title or in the description.
 	 * 
-	 * @param search
-	 *            Search string .
+	 * @param idcategory
+	 *            idCategory string .
+	 * @param price
+	 *            price float .
 	 * 
 	 * @return List of all the product from the database that contain a text either in the title or in the description.
 	 */	

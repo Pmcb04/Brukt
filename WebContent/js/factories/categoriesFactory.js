@@ -1,7 +1,7 @@
 angular.module('') // TODO : poner nombre al modulo
-.factory('usersFactory',['$http', function($http){
+.factory('categoriesFactory',['$http', function($http){
 	var url = 'https://localhost:8443/Brukt/rest/categories/';
-    var usersInterface = {
+    var categoriesInterface = {
 
 		// Obtenemos todas las categorias del sistema
     	getCategories : function(){
@@ -66,5 +66,5 @@ angular.module('') // TODO : poner nombre al modulo
 
 
     }
-    return usersInterface;
+    return categoriesInterface;
 }])

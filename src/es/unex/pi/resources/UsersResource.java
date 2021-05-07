@@ -24,10 +24,19 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
+import es.unex.pi.dao.CommentDAO;
+import es.unex.pi.dao.FavoriteDAO;
+import es.unex.pi.dao.JDBCCommentDAOimpl;
+import es.unex.pi.dao.JDBCFavoriteDAOImpl;
+import es.unex.pi.dao.JDBCProductDAOImpl;
 import es.unex.pi.dao.JDBCUserDAOImpl;
+import es.unex.pi.dao.ProductDAO;
 import es.unex.pi.dao.UserDAO;
+import es.unex.pi.model.Favorite;
 import es.unex.pi.model.PasswordValidation;
+import es.unex.pi.model.Product;
 import es.unex.pi.model.User;
+import es.unex.pi.model.Comment;
 import es.unex.pi.resources.exceptions.CustomBadRequestException;
 import es.unex.pi.resources.exceptions.CustomNotFoundException;
 
@@ -285,10 +294,20 @@ public class UsersResource {
 		  //1. You must connect to the database by using an UserDAO object.
 		 
 			Connection conn = (Connection) sc.getAttribute("dbConn");
-				
+		 
 			UserDAO userDao = new JDBCUserDAOImpl();
 			userDao.setConnection(conn);
-		 
+			
+			ProductDAO productDao = new JDBCProductDAOImpl();
+			productDao.setConnection(conn);
+			
+			FavoriteDAO favoriteDao = new JDBCFavoriteDAOImpl();
+			favoriteDao.setConnection(conn);
+			
+			CommentDAO commentDao = new JDBCCommentDAOimpl();
+			commentDao.setConnection(conn);
+
+
 		  //2. You must obtain the user that has logged into the system
 			
 			HttpSession session =  request.getSession();
@@ -298,7 +317,46 @@ public class UsersResource {
 		if ((user != null)&&(user.getId() == userid)){
 				
 				//3. Delete the user
-				userDao.delete(userid);
+
+				List<Product> products = new ArrayList<Product>();
+				List<Favorite> favorites = new ArrayList<Favorite>();
+				List<Comment> comments = new ArrayList<Comment>();
+				
+				// Obtenemo todos los productos del usuario
+				products = productDao.getAllByUser(user.getId());
+				
+				for (Product product : products) {
+					
+					// Borramos todos los favoritos de los productos que tiene el usuario
+					favorites = favoriteDao.getAllFavoritesByProduct(product.getId());
+					for (Favorite favorite : favorites) {
+						favoriteDao.delete(favorite);
+					}
+					
+					// Borramos todos los comentarios de este producto
+					comments = commentDao.getAllByProduct(product.getId());
+					for (Comment comment : comments) {
+						commentDao.delete(comment.getUsername(), comment.getIdp());
+					}
+					
+					// Borramos el producto del usuario
+					productDao.delete(product.getId());
+					
+				}
+				
+				// Borramos todos los favoritos que ha dado el usuario
+				favorites = favoriteDao.getAllFavoritesByUser(user.getId());
+				for (Favorite favorite : favorites) {
+					favoriteDao.delete(favorite);
+				}
+				
+				// Borramos a el usuario
+				userDao.delete(user.getId());
+				session.removeAttribute("user");
+				user=null;
+
+
+
 			
 				return Response.noContent().build(); //204 no content 
 		}

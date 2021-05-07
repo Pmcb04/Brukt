@@ -1,10 +1,7 @@
 package es.unex.pi.resources;
 
 import java.sql.Connection;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -13,28 +10,20 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
-import es.unex.pi.dao.CategoryDAO;
 import es.unex.pi.dao.CommentDAO;
-import es.unex.pi.dao.JDBCCategoryDAOimpl;
 import es.unex.pi.dao.JDBCCommentDAOimpl;
 import es.unex.pi.dao.JDBCProductDAOImpl;
-import es.unex.pi.dao.JDBCUserDAOImpl;
 import es.unex.pi.dao.ProductDAO;
-import es.unex.pi.dao.UserDAO;
-import es.unex.pi.model.Category;
 import es.unex.pi.model.Comment;
-import es.unex.pi.model.PasswordValidation;
 import es.unex.pi.model.User;
 import es.unex.pi.resources.exceptions.CustomBadRequestException;
 import es.unex.pi.resources.exceptions.CustomNotFoundException;

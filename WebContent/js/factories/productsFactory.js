@@ -1,7 +1,7 @@
 angular.module('') // TODO : poner nombre al modulo
 .factory('productsFactory',['$http', function($http){
 	var url = 'https://localhost:8443/Brukt/rest/products/';
-    var usersInterface = {
+    var productsInterface = {
 
 		// Obtenemos todos los productos del sistema
     	getProducts : function(){
@@ -54,7 +54,7 @@ angular.module('') // TODO : poner nombre al modulo
     	},
 
 		// Obtenemos la lista de productos de un usuario en concreto pasado por parametro
-		getProductSearchTitle : function(userid){
+		getProductsUser : function(userid){
 			
     		url = url + "user/" +userid;
             return $http.get(url)
@@ -63,10 +63,44 @@ angular.module('') // TODO : poner nombre al modulo
                	});
     	},
 
+		// Obtenemos la lista de productos que estan vendidos (sold = 1) o no (sold = 1) de un usuario en concreto pasado por parametro
+		getUserSold : function(userid, sold){
+
+			url = url + "user/" + userid + "/sold/" + sold ;
+			return $http.get(url)
+					.then(function(response){
+						return response.data;
+					});
+		},
+
+
+
+		// Obtenemos la lista de productos que pertenecen a una categoria en concreto o tienen el mismo precion pasado por parametro
+		getCategoryPrice : function(categoryid, price){
+
+			url = url + "category/" + categoryid + "/price/" + price ;
+			return $http.get(url)
+					.then(function(response){
+						return response.data;
+					});
+		},
+
+
+		// Obtenemos la lista de productos que pertenecen a una categoria en concreto pasado por parametro
+		getCategory : function(categoryid){
+	
+			url = url + "category/" +categoryid;
+			return $http.get(url)
+					.then(function(response){
+						return response.data;
+					});
+		},
+
+
 		// Agregamos un producto al sistema que le pasamos por parametro
 		postProduct: function(product){
         
-			return $http.post(url, user)
+			return $http.post(url, product)
 				.then(function (response) {
 					return response.status;
 				});
@@ -96,5 +130,5 @@ angular.module('') // TODO : poner nombre al modulo
 
 
     }
-    return usersInterface;
+    return productsInterface;
 }])

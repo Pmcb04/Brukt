@@ -40,7 +40,6 @@ public class JDBCProductDAOImpl implements ProductDAO {
 			
 			logger.info("fetching products: "+product.toString());
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return product;
@@ -115,7 +114,6 @@ public class JDBCProductDAOImpl implements ProductDAO {
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -154,7 +152,6 @@ public class JDBCProductDAOImpl implements ProductDAO {
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -193,7 +190,6 @@ public class JDBCProductDAOImpl implements ProductDAO {
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -233,7 +229,6 @@ public class JDBCProductDAOImpl implements ProductDAO {
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -272,7 +267,6 @@ public class JDBCProductDAOImpl implements ProductDAO {
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -311,13 +305,53 @@ public class JDBCProductDAOImpl implements ProductDAO {
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		return products;
 	}
 	
+	
+	@Override
+	public List<Product> getAllByCategory(String idCategory) {
+		if (conn == null)
+			return null;
+
+		ArrayList<Product> products = new ArrayList<Product>();
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM product  WHERE UPPER(category) LIKE '%" + idCategory + "%'");
+
+			while (rs.next()) {
+				Product product = new Product();
+				
+				product.setId(rs.getInt("id"));
+				product.setTitle(rs.getString("title"));
+				product.setDescription(rs.getString("description"));
+				product.setCategory(rs.getString("category"));
+				product.setStock(rs.getInt("stock"));
+				product.setCurrency(rs.getString("currency"));
+				product.setPrice(rs.getFloat("price"));
+				product.setIdu(rs.getInt("idu"));
+				product.setSoldout(rs.getInt("soldout"));
+				product.setImage(rs.getString("image"));
+				product.setRapido(rs.getString("rapido"));
+				
+				products.add(product);
+				
+				logger.info("fetching products by text in the description: "+product.toString());				
+				
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return products;
+	}
+
+
+
 	
 	@Override
 	public List<Product> getAllByCategoryPrice(String idCategory, float price) {
@@ -351,7 +385,6 @@ public class JDBCProductDAOImpl implements ProductDAO {
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -377,7 +410,6 @@ public class JDBCProductDAOImpl implements ProductDAO {
 				lastid=rs.getInt("seq");
 								
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
@@ -390,7 +422,6 @@ public class JDBCProductDAOImpl implements ProductDAO {
 				
 								
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
@@ -403,7 +434,6 @@ public class JDBCProductDAOImpl implements ProductDAO {
 											
 				logger.info("CREATING Product("+id+"): "+product.getTitle()+" "+product.getDescription());
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
@@ -434,7 +464,6 @@ public class JDBCProductDAOImpl implements ProductDAO {
 						
 				done= true;
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -454,7 +483,6 @@ public class JDBCProductDAOImpl implements ProductDAO {
 				logger.info("deleting Product: "+id);
 				done= true;
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

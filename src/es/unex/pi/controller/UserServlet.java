@@ -51,7 +51,6 @@ public class UserServlet extends HttpServlet {
      */
     public UserServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
     
     
@@ -196,7 +195,7 @@ public class UserServlet extends HttpServlet {
 			List<Favorite> favorites = new ArrayList<Favorite>();
 			List<Comment> comments = new ArrayList<Comment>();
 			
-			// Todos los productos del usuario
+			// Obtenemos todos los productos del usuario
 			products = productDao.getAllByUser(user.getId());
 			
 			for (Product product : products) {

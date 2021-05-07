@@ -38,7 +38,6 @@ public class DeleteProductServlet extends HttpServlet {
      */
     public DeleteProductServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**

@@ -45,7 +45,6 @@ public class EditProductServlet extends HttpServlet {
      */
     public EditProductServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
     
 	private String characterCurrency(String moneda) {
@@ -161,7 +160,7 @@ public class EditProductServlet extends HttpServlet {
 		Product product = productDao.get(id);
 		Map<String, String> messages = new HashMap<String, String>();
 		
-		if(product.getIdu() == user.getId()) { // TODO cambio esto 
+		if(product.getIdu() == user.getId()) {
 			
 			System.out.println("aqui");
 			

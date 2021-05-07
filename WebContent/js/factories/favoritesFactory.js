@@ -1,7 +1,7 @@
 angular.module('') // TODO : poner nombre al modulo
 .factory('favoritesFactory',['$http', function($http){
 	var url = 'https://localhost:8443/Brukt/rest/favorites/';
-    var usersInterface = {
+    var favoritesInterface = {
 
 		// Obtenemos todos los favoritos del sistema
     	getFavorites : function(){
@@ -56,5 +56,5 @@ angular.module('') // TODO : poner nombre al modulo
 
 
     }
-    return usersInterface;
+    return favoritesInterface;
 }])

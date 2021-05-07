@@ -1,7 +1,7 @@
 angular.module('') // TODO : poner nombre al modulo
-.factory('usersFactory',['$http', function($http){
+.factory('commentsFactory',['$http', function($http){
 	var url = 'https://localhost:8443/Brukt/rest/comments/';
-    var usersInterface = {
+    var commentsInterface = {
 
 		// Obtenemos todos los comentarios del sistema
     	getComments : function(){
@@ -34,7 +34,7 @@ angular.module('') // TODO : poner nombre al modulo
     	},
 
 		// Obtenemos los comentarios que tiene un producto con un determinado ranting pasado por parametro
-    	getCommentProductIDUserUsername : function(id, rating){
+    	getCommentProductIDRating : function(id, rating){
 
     		url = url + "product/" + id + "/rating/" + rating;
             return $http.get(url)
@@ -66,5 +66,5 @@ angular.module('') // TODO : poner nombre al modulo
 
 
     }
-    return usersInterface;
+    return commentsInterface;
 }])

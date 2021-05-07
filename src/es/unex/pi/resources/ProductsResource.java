@@ -24,11 +24,21 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
+import es.unex.pi.dao.CategoryDAO;
+import es.unex.pi.dao.CommentDAO;
+import es.unex.pi.dao.FavoriteDAO;
+import es.unex.pi.dao.JDBCCategoryDAOimpl;
+import es.unex.pi.dao.JDBCCommentDAOimpl;
+import es.unex.pi.dao.JDBCFavoriteDAOImpl;
 import es.unex.pi.dao.JDBCProductDAOImpl;
+import es.unex.pi.dao.JDBCUserDAOImpl;
 import es.unex.pi.dao.ProductDAO;
+import es.unex.pi.dao.UserDAO;
+import es.unex.pi.model.Favorite;
 import es.unex.pi.model.Product;
 import es.unex.pi.model.ProductValidation;
 import es.unex.pi.model.User;
+import es.unex.pi.model.Comment;
 import es.unex.pi.resources.exceptions.CustomBadRequestException;
 import es.unex.pi.resources.exceptions.CustomNotFoundException;
 
@@ -168,7 +178,7 @@ public class ProductsResource {
 	  @GET
 	  @Path("/user/{userid: [0-9]+}")	  // Complete the path
 	  @Produces(MediaType.APPLICATION_JSON)
-	  public List<Product> getUserProductsJSON(@PathParam("userid") long productid,
+	  public List<Product> getProductsUserJSON(@PathParam("userid") long userId,
 			  					@Context HttpServletRequest request) {
 
 		  //Complete the code to implement this method.
@@ -179,6 +189,9 @@ public class ProductsResource {
 				
 			ProductDAO productDao = new JDBCProductDAOImpl();
 			productDao.setConnection(conn);
+
+			UserDAO userDao = new JDBCUserDAOImpl();
+			userDao.setConnection(conn);
 		
 		  //2. You must obtain the user that has logged into the system
 			
@@ -190,17 +203,111 @@ public class ProductsResource {
 		  //   otherwise 
 		  //       throw a CustomNotFoundException with the id of the order not found
 		
-			/*
-			if(productDao.get(productid) != null && (user.getRole().equals("Manager") || user.getId() == productDao.get(productid).getIdu())) return productDao.get(productid);
-			else throw new CustomNotFoundException("User with id  (" + productid + ") is not found");*/
+			if(userDao.exist(userDao.get(userId).getUsername()) && (user.getRole().equals("Manager") || user.getId() == userId)) return productDao.getAllByUser(userId);
+			else throw new CustomNotFoundException("Products with id user  (" + userId + ") is not found");
+
+	  }
+
+	  @GET
+	  @Path("/user/{userid: [0-9]+}/sold/{soldid: [0-1]+}")	  // Complete the path
+	  @Produces(MediaType.APPLICATION_JSON)
+	  public List<Product> getProductSoldJSON(@PathParam("userid") long userId,
+	  										   @PathParam("soldid") int soldId,
+			  								   @Context HttpServletRequest request) {
+
+		  //Complete the code to implement this method.
+		  
+		  //1. You must connect to the database by using an ProductDAO object.
 			
-			return new ArrayList<Product>();
+			Connection conn = (Connection) sc.getAttribute("dbConn");
+				
+			ProductDAO productDao = new JDBCProductDAOImpl();
+			productDao.setConnection(conn);
+
+			UserDAO userDao = new JDBCUserDAOImpl();
+			userDao.setConnection(conn);
+		
+		  //2. You must obtain the user that has logged into the system
+			
+			HttpSession session =  request.getSession();
+			User user = (User) session.getAttribute("user");
+			
+		  
+		  //3. If ((the product exists) && ((it belongs to the current user) || (user is a manager)))
+		  //       return the product
+		  //   otherwise 
+		  //       throw a CustomNotFoundException with the id of the order not found
+		
+			if(userDao.exist(userDao.get(userId).getUsername()) && soldId == 0) return productDao.getAllByUserSale(userId);
+			else if(user != null && userDao.exist(userDao.get(userId).getUsername()) && (user.getRole().equals("Manager") || user.getId() == userId) && soldId > 0) return productDao.getAllByUserSold(userId);
+			else throw new CustomNotFoundException("Products with id user  (" + userId + ") is not found");
+
 	  }
 
 
-	  
-	 
-	  
+
+		@GET
+		@Path("/category/{categoryid: [A-Za-zÑñ0-9]+}/price/{pricenumb: [0-9]+?[.]?[0-9]+?}")	  // Complete the path
+		@Produces(MediaType.APPLICATION_JSON)
+		public List<Product> getProductCategoryPriceJSON(@PathParam("categoryid") String categoryId,
+														@PathParam("pricenumb") float priceNumb,
+														@Context HttpServletRequest request) {
+
+			//Complete the code to implement this method.
+			
+			//1. You must connect to the database by using an ProductDAO object.
+			
+			Connection conn = (Connection) sc.getAttribute("dbConn");
+				
+			ProductDAO productDao = new JDBCProductDAOImpl();
+			productDao.setConnection(conn);
+
+			CategoryDAO categoryDao = new JDBCCategoryDAOimpl();
+			categoryDao.setConnection(conn);
+			
+			
+			//3. If ((the product exists) && ((it belongs to the current user) || (user is a manager)))
+			//       return the product
+			//   otherwise 
+			//       throw a CustomNotFoundException with the id of the order not found
+			
+			if(categoryDao.exist(categoryId)) return productDao.getAllByCategoryPrice(categoryId, priceNumb);
+			else throw new CustomNotFoundException("Category (" + categoryId + ") with price (" + priceNumb + ") is not found");
+		}
+		
+
+
+	  @GET
+	  @Path("/category/{categoryid: [A-Za-zÑñ0-9]+}")	  // Complete the path
+	  @Produces(MediaType.APPLICATION_JSON)
+	  public List<Product> getProductCategoryJSON(@PathParam("categoryid") String categoryId,
+			  					@Context HttpServletRequest request) {
+
+		  //Complete the code to implement this method.
+		  
+		  //1. You must connect to the database by using an ProductDAO object.
+			
+			Connection conn = (Connection) sc.getAttribute("dbConn");
+				
+			ProductDAO productDao = new JDBCProductDAOImpl();
+			productDao.setConnection(conn);
+
+			CategoryDAO categoryDao = new JDBCCategoryDAOimpl();
+			categoryDao.setConnection(conn);
+			
+			System.out.println(categoryId);
+
+		  
+		  //3. If ((the product exists) && ((it belongs to the current user) || (user is a manager)))
+		  //       return the product
+		  //   otherwise 
+		  //       throw a CustomNotFoundException with the id of the order not found
+			
+			if(categoryDao.exist(categoryId)) return productDao.getAllByCategory(categoryId);
+			else throw new CustomNotFoundException("Category (" + categoryId + ") is not found");
+	  }
+
+
 	  @POST	  	  
 	  @Consumes(MediaType.APPLICATION_JSON)
 	  public Response post(Product newProduct, @Context HttpServletRequest request) throws Exception {	
@@ -369,6 +476,13 @@ public class ProductsResource {
 				
 			ProductDAO productDao = new JDBCProductDAOImpl();
 			productDao.setConnection(conn);
+
+			FavoriteDAO favoriteDao = new JDBCFavoriteDAOImpl();
+			favoriteDao.setConnection(conn);
+			
+			CommentDAO commentDao = new JDBCCommentDAOimpl();
+			commentDao.setConnection(conn);
+			
 		 
 		  //2. You must obtain the user that has logged into the system
 			
@@ -379,10 +493,27 @@ public class ProductsResource {
 		
 		if ((product != null)&&(user.getId() == product.getIdu() || user.getRole().equals("Manager"))){
 				
-				//3. Delete the product
-				productDao.delete(productid);
-			
-				return Response.noContent().build(); //204 no content 
+				//3. Delete the product		
+					
+					List<Favorite> favorites = new ArrayList<Favorite>();
+					List<Comment> comments = new ArrayList<Comment>();
+					
+						
+					// Borramos todos los favoritos de este producto
+					favorites = favoriteDao.getAllFavoritesByProduct(product.getId());
+					for (Favorite favorite : favorites) {
+						favoriteDao.delete(favorite);
+					}
+					
+					// Borramos todos los comentarios de este producto
+					comments = commentDao.getAllByProduct(product.getId());
+					for (Comment comment : comments) {
+						commentDao.delete(comment.getUsername(), comment.getIdp());
+					}
+							
+					// Borramos el producto
+					productDao.delete(product.getId());
+					return Response.noContent().build(); //204 no content 
 		}
 		else throw new CustomBadRequestException("Error in user or id");		
 			

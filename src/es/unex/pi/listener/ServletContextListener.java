@@ -74,7 +74,6 @@ public class ServletContextListener implements javax.servlet.ServletContextListe
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

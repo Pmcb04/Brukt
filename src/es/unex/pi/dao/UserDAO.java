@@ -43,6 +43,19 @@ public interface UserDAO {
 	 */
 	public List<User> getAll();
 
+
+	/**
+	 * Gets an user from the DB using username.
+	 * 
+	 * @param password
+	 *            password that we check of the user.
+	 * @param username
+	 *            username user that we check of the password.
+	 * 
+	 * @return User object with that username.
+	 */
+	public boolean checkPassword(String password, String username);
+
 	/**
 	 * Adds an user to the database.
 	 * 

@@ -31,7 +31,6 @@ public class JDBCCategoryDAOimpl implements CategoryDAO{
 			category.setImage(rs.getString("image"));
 			logger.info("fetching User by id: "+id+" -> " + category.toString());
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return category;
@@ -53,7 +52,6 @@ public class JDBCCategoryDAOimpl implements CategoryDAO{
 			category.setImage(rs.getString("image"));
 			logger.info("fetching Category by name: "+name+" -> " + category.toString());
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return category;
@@ -107,7 +105,6 @@ public class JDBCCategoryDAOimpl implements CategoryDAO{
 				lastidu=rs.getString("seq");
 								
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
@@ -119,7 +116,6 @@ public class JDBCCategoryDAOimpl implements CategoryDAO{
 									+category.getName()+"','"
 									+category.getImage()+"')");
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
@@ -131,7 +127,6 @@ public class JDBCCategoryDAOimpl implements CategoryDAO{
 											
 				logger.info("CREATING " + category.toString());
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
@@ -154,7 +149,6 @@ public class JDBCCategoryDAOimpl implements CategoryDAO{
 				logger.info("updating " + category.toString() );
 				done= true;
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
@@ -176,7 +170,6 @@ public class JDBCCategoryDAOimpl implements CategoryDAO{
 				logger.info("deleting Category: "+id);
 				done= true;
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -185,7 +178,6 @@ public class JDBCCategoryDAOimpl implements CategoryDAO{
 
 	@Override
 	public void setConnection(Connection conn) {
-		// TODO Auto-generated method stub
 		this.conn = conn;
 	}
 

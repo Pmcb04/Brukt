@@ -25,7 +25,6 @@ public class ContactServlet extends HttpServlet {
      */
     public ContactServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**

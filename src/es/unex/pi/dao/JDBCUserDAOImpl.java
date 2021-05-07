@@ -29,13 +29,12 @@ public class JDBCUserDAOImpl implements UserDAO {
 			user.setId(rs.getInt("id"));
 			user.setUsername(rs.getString("username"));
 			user.setEmail(rs.getString("email"));
-			user.setPassword(rs.getString("password"));//We return all users with a hidden password
+			user.setPassword("********");//We return all users with a hidden password
 			user.setImage(rs.getString("image"));
 			user.setGenero(rs.getString("genero"));
 			user.setRole(rs.getString("role"));
 			logger.info("fetching User by id: "+id+" -> " + user.toString());
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return user;
@@ -55,13 +54,12 @@ public class JDBCUserDAOImpl implements UserDAO {
 			user.setId(rs.getInt("id"));
 			user.setUsername(rs.getString("username"));
 			user.setEmail(rs.getString("email"));
-			user.setPassword(rs.getString("password"));//We return all users with a hidden password
+			user.setPassword("********");//We return all users with a hidden password
 			user.setImage(rs.getString("image"));
 			user.setGenero(rs.getString("genero"));
 			user.setRole(rs.getString("role"));
 			logger.info("fetching User by name: "+ username + " -> "+ user.toString());
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return user;
@@ -100,6 +98,22 @@ public class JDBCUserDAOImpl implements UserDAO {
 
 		return users;
 	}
+
+	@Override
+	public boolean checkPassword(String password, String username) {
+		if (conn == null) return false;
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM users WHERE username ='"+username+"'");			 
+			if (!rs.next()) return false; 
+			if(rs.getString("password").equals(password)) return true;
+			else return false;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
 	
 
 	@Override
@@ -168,7 +182,6 @@ public class JDBCUserDAOImpl implements UserDAO {
 				logger.info("updating User: "+user.toString());
 				done= true;
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
@@ -189,7 +202,6 @@ public class JDBCUserDAOImpl implements UserDAO {
 				logger.info("deleting User: "+id);
 				done= true;
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -198,7 +210,6 @@ public class JDBCUserDAOImpl implements UserDAO {
 
 	@Override
 	public void setConnection(Connection conn) {
-		// TODO Auto-generated method stub
 		this.conn = conn;
 	}
 

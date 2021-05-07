@@ -34,7 +34,6 @@ public class JDBCCommentDAOimpl implements CommentDAO{
 			comment.setRating(Integer.parseInt(rs.getString("rating")));
 			logger.info("fetching Comment by username: "+username+" -> " + comment.toString());
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return comment;
@@ -65,7 +64,6 @@ public class JDBCCommentDAOimpl implements CommentDAO{
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -96,7 +94,6 @@ public class JDBCCommentDAOimpl implements CommentDAO{
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -148,7 +145,6 @@ public class JDBCCommentDAOimpl implements CommentDAO{
 				lastidu=rs.getString("seq");
 								
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
@@ -162,7 +158,6 @@ public class JDBCCommentDAOimpl implements CommentDAO{
 									+comment.getDescription()+"','"
 									+comment.getRating()+"')");
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
@@ -174,7 +169,6 @@ public class JDBCCommentDAOimpl implements CommentDAO{
 											
 				logger.info("CREATING " + comment.toString());
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
@@ -195,7 +189,6 @@ public class JDBCCommentDAOimpl implements CommentDAO{
 				logger.info("deleting Comment: "+username);
 				done= true;
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

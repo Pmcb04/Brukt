@@ -2,9 +2,7 @@ package es.unex.pi.resources;
 
 import java.sql.Connection;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -25,11 +23,17 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import es.unex.pi.dao.CategoryDAO;
+import es.unex.pi.dao.CommentDAO;
+import es.unex.pi.dao.FavoriteDAO;
 import es.unex.pi.dao.JDBCCategoryDAOimpl;
-import es.unex.pi.dao.JDBCUserDAOImpl;
-import es.unex.pi.dao.UserDAO;
+import es.unex.pi.dao.JDBCCommentDAOimpl;
+import es.unex.pi.dao.JDBCFavoriteDAOImpl;
+import es.unex.pi.dao.JDBCProductDAOImpl;
+import es.unex.pi.dao.ProductDAO;
 import es.unex.pi.model.Category;
-import es.unex.pi.model.PasswordValidation;
+import es.unex.pi.model.Comment;
+import es.unex.pi.model.Favorite;
+import es.unex.pi.model.Product;
 import es.unex.pi.model.User;
 import es.unex.pi.resources.exceptions.CustomBadRequestException;
 import es.unex.pi.resources.exceptions.CustomNotFoundException;
@@ -271,6 +275,15 @@ public class CategoriesResource {
 				
 			CategoryDAO categoryDao = new JDBCCategoryDAOimpl();
 			categoryDao.setConnection(conn);
+			
+			ProductDAO productDao = new JDBCProductDAOImpl();
+			productDao.setConnection(conn);
+			
+			FavoriteDAO favoriteDao = new JDBCFavoriteDAOImpl();
+			favoriteDao.setConnection(conn);
+			
+			CommentDAO commentDao = new JDBCCommentDAOimpl();
+			commentDao.setConnection(conn);
 		 
 		  //2. You must obtain the user that has logged into the system
 			
@@ -278,9 +291,37 @@ public class CategoriesResource {
 			User user = (User) session.getAttribute("user");
 		
 		
-		if (user != null && user.getRole().equals("Manager")) {
+		if (user != null && user.getRole().equals("Manager") && categoryDao.exist(categoryId)) {
 				
 				//3. Delete the category
+
+				List<Product> products = new ArrayList<Product>();
+				List<Favorite> favorites = new ArrayList<Favorite>();
+				List<Comment> comments = new ArrayList<Comment>();
+				
+				// Obtenemos todos los productos de la categoria
+				products = productDao.getAllByCategory(categoryId);
+				
+				for (Product product : products) {
+					
+					// Borramos todos los favoritos de los productos que tiene la categoria
+					favorites = favoriteDao.getAllFavoritesByProduct(product.getId());
+					for (Favorite favorite : favorites) {
+						favoriteDao.delete(favorite);
+					}
+					
+					// Borramos todos los comentarios de este producto
+					comments = commentDao.getAllByProduct(product.getId());
+					for (Comment comment : comments) {
+						commentDao.delete(comment.getUsername(), comment.getIdp());
+					}
+					
+					// Borramos el producto de la categoria
+					productDao.delete(product.getId());
+					
+				}
+				
+				 // Borramos la categoria
 				categoryDao.delete(categoryId);
 				return Response.noContent().build(); //204 no content 
 		}

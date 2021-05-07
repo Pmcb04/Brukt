@@ -39,7 +39,6 @@ public class JDBCFavoriteDAOImpl implements FavoriteDAO{
 			favorite.setIdu(rs.getInt("idu"));
 			logger.info("fetching Favorite -> " + favorite.toString());
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return favorite;
@@ -74,7 +73,6 @@ public class JDBCFavoriteDAOImpl implements FavoriteDAO{
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -104,7 +102,6 @@ public class JDBCFavoriteDAOImpl implements FavoriteDAO{
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -131,7 +128,6 @@ public class JDBCFavoriteDAOImpl implements FavoriteDAO{
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -165,7 +161,6 @@ public class JDBCFavoriteDAOImpl implements FavoriteDAO{
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -195,7 +190,6 @@ public class JDBCFavoriteDAOImpl implements FavoriteDAO{
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -219,7 +213,6 @@ public class JDBCFavoriteDAOImpl implements FavoriteDAO{
 				lastidu=rs.getInt("seq");
 								
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
@@ -230,7 +223,6 @@ public class JDBCFavoriteDAOImpl implements FavoriteDAO{
 									+favorite.getIdp()+"','"
 									+favorite.getIdu()+"')");
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
@@ -243,7 +235,6 @@ public class JDBCFavoriteDAOImpl implements FavoriteDAO{
 											
 				logger.info("CREATING Favorite("+id+"): " + favorite.toString());
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
@@ -263,7 +254,6 @@ public class JDBCFavoriteDAOImpl implements FavoriteDAO{
 				logger.info("deleting favorite: "+ favorite.toString());
 				done= true;
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

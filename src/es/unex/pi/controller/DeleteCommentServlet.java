@@ -33,7 +33,6 @@ public class DeleteCommentServlet extends HttpServlet {
      */
     public DeleteCommentServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
