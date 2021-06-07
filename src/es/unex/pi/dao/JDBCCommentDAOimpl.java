@@ -186,7 +186,7 @@ public class JDBCCommentDAOimpl implements CommentDAO{
 			try {
 				stmt = conn.createStatement();
 				stmt.executeUpdate("DELETE FROM comments WHERE username = '"+username + "' and idp=" + idp);
-				logger.info("deleting Comment: "+username);
+				logger.info("deleting Comment: "+username);	
 				done= true;
 			} catch (SQLException e) {
 				e.printStackTrace();

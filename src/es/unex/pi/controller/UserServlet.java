@@ -239,7 +239,7 @@ public class UserServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		if(session != null)
 			session.invalidate();
-		response.sendRedirect(request.getContextPath() + "/IndexServlet.do");
+		response.sendRedirect("https://localhost:8443/Brukt/");
 		
     }
     

@@ -1,4 +1,4 @@
-angular.module('') // TODO : poner nombre al modulo
+angular.module('BruktApp')
 .factory('favoritesFactory',['$http', function($http){
 	var url = 'https://localhost:8443/Brukt/rest/favorites/';
     var favoritesInterface = {
@@ -16,8 +16,8 @@ angular.module('') // TODO : poner nombre al modulo
 		// Obtenemos los favoritos que ha dado un usuario en concreto que pasamos por parametro
     	getFavoritesUserID : function(id){
 
-    		url = url + "user/" + id;
-            return $http.get(url)
+    		var newurl = url + "user/" + id;
+            return $http.get(newurl)
               	.then(function(response){
         			 return response.data;
                	});
@@ -25,9 +25,9 @@ angular.module('') // TODO : poner nombre al modulo
 
 		// Obtenemos la lista de usuarios que ha dado favorito a un producto en concreto pasado por parametro
     	getFavoritesProductID : function(id){
-			
-    		url = url + "product/" + id;
-            return $http.get(url)
+
+    		var newurl = url + "product/" + id;
+            return $http.get(newurl)
               	.then(function(response){
         			 return response.data;
                	});
@@ -44,10 +44,10 @@ angular.module('') // TODO : poner nombre al modulo
     	}, 
 
 		// Borramos un favorito que le pasamos el id del usuario que le habia dado, asi como el id del producto que queremos quitar el favorito
-        deleteFavorite : function(id){
+        deleteFavorite : function(idu, idp){
 
-			url = url + id;
-			return $http.delete(url)
+			var newurl = url + "user/" + idu + "/product/" + idp;
+			return $http.delete(newurl)
 				.then(function (response) {
 					return response.status;
 				});

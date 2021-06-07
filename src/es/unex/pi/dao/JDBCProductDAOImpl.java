@@ -37,6 +37,7 @@ public class JDBCProductDAOImpl implements ProductDAO {
 			product.setSoldout(rs.getInt("soldout"));
 			product.setImage(rs.getString("image"));
 			product.setRapido(rs.getString("rapido"));
+			product.setPremium(rs.getString("premium"));
 			
 			logger.info("fetching products: "+product.toString());
 		} catch (SQLException e) {
@@ -68,6 +69,7 @@ public class JDBCProductDAOImpl implements ProductDAO {
 				product.setSoldout(rs.getInt("soldout"));
 				product.setImage(rs.getString("image"));
 				product.setRapido(rs.getString("rapido"));
+				product.setPremium(rs.getString("premium"));
 				
 				
 				products.add(product);
@@ -106,6 +108,7 @@ public class JDBCProductDAOImpl implements ProductDAO {
 				product.setSoldout(rs.getInt("soldout"));
 				product.setImage(rs.getString("image"));
 				product.setRapido(rs.getString("rapido"));
+				product.setPremium(rs.getString("premium"));
 				
 				products.add(product);
 				
@@ -144,6 +147,7 @@ public class JDBCProductDAOImpl implements ProductDAO {
 				product.setSoldout(rs.getInt("soldout"));
 				product.setImage(rs.getString("image"));
 				product.setRapido(rs.getString("rapido"));
+				product.setPremium(rs.getString("premium"));
 				
 				products.add(product);
 				
@@ -182,6 +186,7 @@ public class JDBCProductDAOImpl implements ProductDAO {
 				product.setSoldout(rs.getInt("soldout"));
 				product.setImage(rs.getString("image"));
 				product.setRapido(rs.getString("rapido"));
+				product.setPremium(rs.getString("premium"));
 				
 				products.add(product);
 				
@@ -221,6 +226,7 @@ public class JDBCProductDAOImpl implements ProductDAO {
 				product.setSoldout(rs.getInt("soldout"));
 				product.setImage(rs.getString("image"));
 				product.setRapido(rs.getString("rapido"));
+				product.setPremium(rs.getString("premium"));
 				
 				products.add(product);
 				
@@ -259,6 +265,7 @@ public class JDBCProductDAOImpl implements ProductDAO {
 				product.setSoldout(rs.getInt("soldout"));
 				product.setImage(rs.getString("image"));
 				product.setRapido(rs.getString("rapido"));
+				product.setPremium(rs.getString("premium"));
 				
 				products.add(product);
 				
@@ -297,6 +304,7 @@ public class JDBCProductDAOImpl implements ProductDAO {
 				product.setSoldout(rs.getInt("soldout"));
 				product.setImage(rs.getString("image"));
 				product.setRapido(rs.getString("rapido"));
+				product.setPremium(rs.getString("premium"));
 				
 				products.add(product);
 				
@@ -336,6 +344,7 @@ public class JDBCProductDAOImpl implements ProductDAO {
 				product.setSoldout(rs.getInt("soldout"));
 				product.setImage(rs.getString("image"));
 				product.setRapido(rs.getString("rapido"));
+				product.setPremium(rs.getString("premium"));
 				
 				products.add(product);
 				
@@ -377,6 +386,7 @@ public class JDBCProductDAOImpl implements ProductDAO {
 				product.setSoldout(rs.getInt("soldout"));
 				product.setImage(rs.getString("image"));
 				product.setRapido(rs.getString("rapido"));
+				product.setPremium(rs.getString("premium"));
 				
 				products.add(product);
 				
@@ -416,9 +426,9 @@ public class JDBCProductDAOImpl implements ProductDAO {
 			
 			try {
 				stmt = conn.createStatement();
-				stmt.executeUpdate("INSERT INTO product (title,description,category,stock,currency,price,idu,soldout,image,rapido) VALUES('"
+				stmt.executeUpdate("INSERT INTO product (title,description,category,stock,currency,price,idu,soldout,image,rapido,premium) VALUES('"
 									+product.getTitle()+"','"+product.getDescription()+"','"+product.getCategory()+"','" + product.getStock() +"','" + product.getCurrency() + "'," 
-									+ product.getPrice() + "," + product.getIdu() +","+ product.getSoldout() +",'"+ product.getImage() +"','"+ product.getRapido() +"')");
+									+ product.getPrice() + "," + product.getIdu() +","+ product.getSoldout() +",'"+ product.getImage() +"','"+ product.getRapido() +"','"+ product.getPremium() +"')");
 				
 								
 			} catch (SQLException e) {
@@ -456,6 +466,7 @@ public class JDBCProductDAOImpl implements ProductDAO {
 				+"', currency='"+product.getCurrency()
 				+"', image='"+product.getImage()
 				+"', rapido='"+product.getRapido()
+				+"', premium='"+product.getPremium()
 				+"', price="+product.getPrice()
 				+", idu="+product.getIdu()
 				+", soldout="+product.getSoldout()

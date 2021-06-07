@@ -45,7 +45,7 @@ public class ProductValidation {
 			}
 			
 			
-			if(!product.getRapido().equals("yes") && !product.getRapido().equals("no")) {
+			if(!product.getRapido().equals("Si") && !product.getRapido().equals("No")) {
 				messages.put("rapido", "Debe marcar si desea envio rápido o no");
 				error = true;
 			}

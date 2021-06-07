@@ -1,0 +1,183 @@
+<div class="main-content">
+
+    <!-- Page content -->
+    <div class="container-fluid pd--150 bg__white">
+      <div class="row" style="justify-content: center;">
+        <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
+          <div class="card card-profile shadow">
+            <div class="row justify-content-center">
+              <div class="col-lg-3 order-lg-2">
+                 <div class="card-profile-image image-upload">
+                <label for="input">
+                      <!-- <img id="img" data-ng-src="../images/user/{{user.image}}" class="rounded-circle">  -->
+                    <img data-ng-src="../images/user/{{ userPageVM.user.image }}" class="rounded-circle" />			        
+                </label>
+                  
+                  <input onchange="file_changed();javascript:document.getElementById('target').submit();" id="input" name="file" type="file" style="display: none;"/>
+                 
+                </div>
+              </div>
+            </div>
+            <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+              <div class="d-flex justify-content-between icons_profile">
+                <a data-ng-href="#!/deleteUser/{{userPageVM.user.id}}" data-ng-show="userPageVM.functions.where('/user/' + userPageVM.userLog.id)" data-toggle="modal"><span class="material-icons">delete</span></a>
+                <a href="ChatServlet.do"><span class="material-icons">question_answer</span></a>
+              </div>
+            </div>
+            <div class="card-body pt-0 pt-md-4">
+              <div class="row">
+                <div class="col">
+                  <div class="card-profile-stats d-flex justify-content-center mt-md-5">
+                    <div>
+                      <span class="heading">{{ userPageVM.productsSale.length }}</span>
+                      <span class="description">En venta</span>
+                    </div>
+                    <div>
+                      <span class="heading">{{ userPageVM.productsSold.length }}</span>
+                      <span class="description">Vendidos</span>
+                    </div>
+                    <div>
+                      <span class="heading">{{ userPageVM.favoritesUser.length }}</span>
+                      <span class="description">Favoritos</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="text-center">
+                <h3>
+                  {{ userPageVM.user.username }}<span class="font-weight-light"></span>
+                </h3>
+                <div class="h5 font-weight-300">
+                  <i class="ni location_pin mr-2"></i>{{ userPageVM.user.email }}
+                </div>
+                
+                <hr class="my-4">
+                	<form action="../LogoutServlet.do" method="get"><div data-ng-show="userPageVM.functions.where('/user/' + userPageVM.userLog.id)"><button type="submit" class="btn btn-sm btn-close float-center">Cerrar sesión</button></div></form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xl-8 order-xl-1 shadow" data-ng-show="userPageVM.functions.where('/user/' + userPageVM.userLog.id)">
+         
+            <div class="card-body">
+
+              <form ng-submit="userPageVM.functions.updateUser()">
+                <h6 class="heading-small text-muted mb-4">Información del usuario</h6>
+                <div class="pl-lg-4">
+                  <div class="row">
+                  
+                    <div class="col-lg-6">
+                      <div class="form-group focused">
+                        <label class="form-control-label" for="input-username">Nombre de usuario</label>
+                        <input type="text" id="username" name="username" class="form-control form-control-alternative" placeholder="Username" 
+                        value="{{user.username}}" data-ng-model="userPageVM.user.username" >
+                      </div>
+                    </div>
+                    
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-email">Dirección de email</label>
+                        <input type="email" id="email" name="email" class="form-control form-control-alternative" placeholder="Email" value="{{user.email}}"
+						          	data-ng-model="userPageVM.user.email">
+                      </div>
+                    </div>
+                    
+                     <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-genero">Genero</label>
+                        <select class="form-control form-control-alternative" name="genero">
+                          <option>Hombre</option>
+                          <option>Mujer</option>
+                        </select>						
+                      </div>
+                    </div>
+
+
+                    <hr class="my-4">
+                    <button type="submit" class="btn btn-sm">Guardar Cambios</button>
+                    
+                  </div>
+                </div>
+                
+                
+              </form>
+              
+              <form ng-submit="userPageVM.functions.updateUser()">
+                <h6 class="heading-small text-muted mb-4" style="margin-top: 40px;">Cambio de contraseña</h6>
+                <div class="pl-lg-4">
+                  <div class="row"> 
+
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-password">Nueva contraseña</label>
+                        <input type="text" id="password" name="password" class="form-control form-control-alternative" placeholder="Contraseña" value=""
+                        data-ng-model="userPageVM.user.password">                       				
+                      </div>
+                    </div>
+
+                    <hr class="my-4">
+                    <button type="submit" class="btn btn-sm">Cambiar contraseña</button>
+                </div>
+                </div>
+              </form>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+	<div class="htc__login__register bg__white ptb--150">
+    	
+      <div class="container" ng-if="userPageVM.favoritesUser.length > 0">
+    	
+        <div class="row">
+				  <h2 class="titles_user">Articulos favoritos</h2>
+        </div>
+
+				<div ng-repeat="prod in userPageVM.favoritesUser">
+					<div ng-include="'../template/Single-product.html'" >
+					 </div>	
+				 </div>
+      </div>
+
+      <div class="container">
+         
+        <div class="row">
+				  <h2 class="titles_user">Articulos a la venta</h2>
+        </div>
+
+        <div ng-repeat="prod in userPageVM.productsSale">
+          <div ng-include="'../template/Single-product.html'" ></div>
+        </div>	
+
+        <div class="col-md-3 single__pro col-lg-3 hidden-sm col-xs-12 cat--3">
+            <div class="product foo">
+                <div class="product__inner">
+                    <div class="pro__thumb">
+                        <a data-ng-href="#!/addProduct/">
+                            <img src="../images/product/add_product.png" alt="product images">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+      
+      <div class="container" ng-if="userPageVM.productsSold.length > 0">
+	
+        <div class="row">
+          <h2 class="titles_user">Articulos vendidos</h2>
+        </div>
+          
+        <div ng-repeat="prod in userPageVM.productsSold">
+          <div ng-include="'../template/Single-product.html'" >
+          </div>	
+        </div>
+      </div>
+			
+		</div>
+	</div>

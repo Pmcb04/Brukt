@@ -1,8 +1,9 @@
-angular.module('') // TODO : poner nombre al modulo
+angular.module('BruktApp')
 .controller('commentsCtrl', ['commentsFactory','$location','$routeParams',
                     function(commentsFactory,$location, $routeParams){
     var commentViewModel = this;
     commentViewModel.comment={};
+	commentViewModel.commentsProduct={};
     commentViewModel.functions = {
 
         // Leemos una comentario con el identificador id que pasamos por parametro
@@ -11,7 +12,7 @@ angular.module('') // TODO : poner nombre al modulo
 			commentsFactory.getCommentProductID(id)
 				.then(function (response) {
 					console.log("Reading comment with id: ", id, " Response: ", response);
-					commentViewModel.Comment = response;
+					commentViewModel.commentsProduct = response;
 				}), function(response) {
 					console.log("Error reading comment");
 					$location.path('/');
@@ -25,7 +26,7 @@ angular.module('') // TODO : poner nombre al modulo
 			commentsFactory.getCommentProductIDUserUsername(id, username)
 				.then(function (response) {
 					console.log("Reading comment with id", id, "and username: ", username, " Response: ", response);
-					commentViewModel.Comment = response;
+					commentViewModel.comment = response;
 				}), function(response) {
 					console.log("Error reading comment");
 					$location.path('/');
@@ -39,7 +40,7 @@ angular.module('') // TODO : poner nombre al modulo
 			commentsFactory.getCommentProductIDRating(id, rating)
 				.then(function (response) {
 					console.log("Reading comment with id", id, "and rating: ", rating, " Response: ", response);
-					commentViewModel.Comment = response;
+					commentViewModel.comment = response;
 				}), function(response) {
 					console.log("Error reading comment");
 					$location.path('/');
@@ -96,6 +97,7 @@ angular.module('') // TODO : poner nombre al modulo
     }
 
 	console.log("Entering commentsCtrl with $routeParams.ID=",$routeParams.ID);
+	commentViewModel.functions.readCommentProductID($routeParams.ID);
 
     // TODO ¿hace falta?
     /*

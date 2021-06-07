@@ -36,6 +36,18 @@ public interface UserDAO {
 	 */
 	public User get(String username);
 
+
+	/**
+	 * Gets an user from the DB using username with password.
+	 * 
+	 * @param username
+	 *            Username of the user.
+	 * 
+	 * @return User object with that username.
+	 */
+	public User getPassword(String username);
+
+
 	/**
 	 * Gets all the users from the database.
 	 * 

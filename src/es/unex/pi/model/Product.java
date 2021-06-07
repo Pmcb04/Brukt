@@ -16,6 +16,8 @@ public class Product {
 	private String image;
 	private int soldout; //1 "true" //0 "false"
 	private String rapido;
+	private String premium;
+
 	
 	public int getSoldout() {
 		return soldout;
@@ -89,11 +91,19 @@ public class Product {
 	public void setRapido(String rapido) {
 		this.rapido = rapido;
 	}
+	public String getPremium() {
+		return premium;
+	}
+	public void setPremium(String premium) {
+		this.premium = premium;
+	}
+
+
 	@Override
 	public String toString() {
 		return "Product [id=" + id + ", title=" + title + ", description=" + description + ", category=" + category
 				+ ", stock=" + stock + ", currency=" + currency + ", price=" + price + ", idu=" + idu + ", image="
-				+ image + ", soldout=" + soldout + ", rapido=" + rapido + "]";
+				+ image + ", soldout=" + soldout + ", rapido=" + rapido + ", premium=" + premium + "]";
 	}
 
 	

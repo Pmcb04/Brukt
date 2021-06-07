@@ -1,0 +1,323 @@
+        <!-- Start Product Details -->
+        <section class="htc__product__details pt--120 pb--100 bg__white">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+                        <div class="product__details__container">
+                            <div class="product__big__images">
+                                <div class="portfolio-full-image tab-content">
+                                    <div role="tabpanel" class="tab-pane fade in active" id="img-tab-1">
+                                        <img data-ng-src="../images/product/{{productPageVM.product.image}}" alt="full-image">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12 smt-30 xmt-30">
+                        <div class="htc__product__details__inner">
+                            <div class="pro__detl__title">
+                                <h2>{{productPageVM.product.title}}</h2>
+                            </div>
+                            <div class="pro__favorites">
+                            
+					    		<div ng-if="productPageVM.product.favorites == 0">
+                                    <p>A ninguna persona le gusta este articulo</p>
+
+								</div>
+
+								<div ng-if="productPageVM.product.favorites > 1">
+									<p>A {{ productPageVM.product.favorites }} personas les gusta este articulo</p>
+								</div>
+
+					    		<div ng-if="productPageVM.product.favorites == 1">
+                                    <p>A {{ productPageVM.product.favorites }} persona le gusta este articulo</p>
+
+								</div>
+
+					    	
+					    	<p class="prod_ven">Producto vendido por <a data-ng-href="/Brukt/private/User.html#!/user/{{productPageVM.product.idu}}" class="user_ven">{{productPageVM.product.user.username}}</a></p>
+                       
+                            </div>
+
+					    	<div ng-if="productPageVM.product.rapido = yes">
+					    		<p class="rapido">Entrega rápida (24h)</p>
+					    	</div>
+                            
+                            
+                            <ul class="pro__dtl__prize">
+                                <li>{{productPageVM.product.price}} {{productPageVM.product.currency}}</li>
+                            </ul>
+                            <div class="product-action-wrap">
+                                <div class="prodict-statas"><span>Cantidad :</span></div>
+                                <div class="product-quantity">
+                                    <form id='myform' method='POST' action='#'>
+                                        <div class="product-quantity">
+                                            <div class="cart-plus-minus">
+										    		<div ng-if="productPageVM.product.soldout==1">
+                                                		<input class="cart-plus-minus-box" type="text" name="qtybutton" min="0" max="0" value="0">
+													</div>
+										    		<div ng-if="productPageVM.product.soldout==0">
+                                                		<input class="cart-plus-minus-box" type="text" name="qtybutton" min="1" max="{{productPageVM.product.stock}}" value="1">
+													</div>
+                                            
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <ul class="pro__dtl__btn">
+									<div data-ng-if="productPageVM.product.soldout==1 && productPageVM.product.idu != headerVM.user.id">
+											<img alt="icono de vendido" style="width: 32px; height: 32px;" src="../images/icons/venta.png">	
+						    		</div>
+						    		<div data-ng-if="productPageVM.product.soldout==0 && productPageVM.product.idu != headerVM.user.id">
+	                                     <li class="buy__now__btn"><a href="#">Comprar</a></li>      		
+									</div>
+
+									<div ng-if="productPageVM.product.favorite_user === true && productPageVM.product.idu != headerVM.user.id">
+										<li><a class ="favorite_link" title="Quitar de favoritos"><span data-ng-click="productPageVM.functions.deleteFavorite(headerVM.user.id, productPageVM.product.id)" class="material-icons favorite_heart">{{productPageVM.imageFavorite}}</span></a></li>
+									</div>
+				
+									<div ng-if="productPageVM.product.favorite_user === false && productPageVM.product.idu != headerVM.user.id">
+										<li><a class ="favorite_link" title="Añadir a favoritos"><span data-ng-click="productPageVM.functions.createFavorite(headerVM.user.id, productPageVM.product.id)" class="material-icons favorite_heart">{{productPageVM.imageFavorite}}</span></a></li>
+									</div>
+
+                            </ul>
+							<div ng-if="productPageVM.product.idu == headerVM.user.id">
+								<div class="icons_profile"> 
+									<a href="DeleteProductServlet.do?id=${param.id}"><span class="material-icons">delete</span></a>
+									<a href="EditProductServlet.do?id=${param.id}"><span class="material-icons">edit</span></a> 
+								</div>
+							</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Product Details -->
+        <!-- Start Product tab -->
+        <section class="htc__product__details__tab bg__white pb--120">
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                        <ul class="product__deatils__tab mb--60" role="tablist">
+                            <li role="presentation" class="active">
+								<a>Descripción</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+				<div class="row">
+					<div class="col-md-12">
+                        <div class="product__details__tab__content">
+                            <!-- Start Single Content -->
+                            <div role="tabpanel" id="description" class="product__tab__content fade in active">
+                                <div class="product__description__wrap">
+                                    <div class="product__desc">
+                                        <h2 class="title__6">Detalles</h2>
+                                        <p>{{ productPageVM.product.description }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Single Content -->
+						</div>
+					</div>
+                </div>
+
+
+				<div class="row">
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                        <ul class="product__deatils__tab mb--60" role="tablist">
+                            <li role="presentation" class="active">
+								<a>Comentarios</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+				<div class="row">
+					<div class="col-md-12">
+                        <div class="product__details__tab__content">
+   							<!-- Start Single Content -->
+                            
+										<p class="filtro_estrellas">Filtrar por numero de estrellas</p>
+										
+										
+										<div ng-click="productPageVM.functions.readCommentProductID(productPageVM.product.id)">
+											<p>Todos los comentarios</p>
+										</div>
+										
+										
+										
+										<div ng-click="productPageVM.functions.readCommentProductRating(productPageVM.product.id,0)">
+											<ul class="rating">
+			            	
+								    		    <li><i class="zmdi zmdi-star-outline"></i></li>		                
+								    		    <li><i class="zmdi zmdi-star-outline"></i></li>
+								                <li><i class="zmdi zmdi-star-outline"></i></li>
+								                <li><i class="zmdi zmdi-star-outline"></i></li>
+								                <li><i class="zmdi zmdi-star-outline"></i></li>
+								            </ul>
+										</div>
+										
+										
+										<div ng-click="productPageVM.functions.readCommentProductRating(productPageVM.product.id,1)">
+											<ul class="rating">
+			            	
+								    		    <li><i class="zmdi zmdi-star"></i></li>		                
+								    		    <li><i class="zmdi zmdi-star-outline"></i></li>
+								                <li><i class="zmdi zmdi-star-outline"></i></li>
+								                <li><i class="zmdi zmdi-star-outline"></i></li>
+								                <li><i class="zmdi zmdi-star-outline"></i></li>
+								            </ul>
+										</div>
+										
+										
+										<div ng-click="productPageVM.functions.readCommentProductRating(productPageVM.product.id,2)">
+							 				<ul class="rating">
+								                <li><i class="zmdi zmdi-star"></i></li>
+								                <li><i class="zmdi zmdi-star"></i></li>
+								                <li><i class="zmdi zmdi-star-outline"></i></li>
+								                <li><i class="zmdi zmdi-star-outline"></i></li>
+								                <li><i class="zmdi zmdi-star-outline"></i></li> 
+								            </ul>
+							            </div>
+							            
+							            
+										<div ng-click="productPageVM.functions.readCommentProductRating(productPageVM.product.id,3)">
+							 				<ul class="rating">
+								                <li><i class="zmdi zmdi-star"></i></li>
+								                <li><i class="zmdi zmdi-star"></i></li>
+								                <li><i class="zmdi zmdi-star"></i></li>
+								                <li><i class="zmdi zmdi-star-outline"></i></li>
+								                <li><i class="zmdi zmdi-star-outline"></i></li> 
+								            </ul>
+							            </div>
+							            
+										<div ng-click="productPageVM.functions.readCommentProductRating(productPageVM.product.id,4)">
+							 				<ul class="rating">
+								                <li><i class="zmdi zmdi-star"></i></li>
+								                <li><i class="zmdi zmdi-star"></i></li>
+								                <li><i class="zmdi zmdi-star"></i></li>
+								                <li><i class="zmdi zmdi-star"></i></li>
+								                <li><i class="zmdi zmdi-star-outline"></i></li> 
+								            </ul>
+							            </div>
+							            
+							            <div ng-click="productPageVM.functions.readCommentProductRating(productPageVM.product.id,5)">
+							 				<ul class="rating">
+								                <li><i class="zmdi zmdi-star"></i></li>
+								                <li><i class="zmdi zmdi-star"></i></li>
+								                <li><i class="zmdi zmdi-star"></i></li>
+								                <li><i class="zmdi zmdi-star"></i></li>
+								                <li><i class="zmdi zmdi-star"></i></li>
+			                            	</ul>
+		                            	</div>
+
+
+								<div ng-repeat="comment in productPageVM.commentsProduct"
+									data-ng-model="productPageVM.commentsProduct">
+
+									<!-- https://techclub.tajamar.es/subir-archivos-de-imagen-en-angular-con-api/ -->
+
+									<!-- <div ng-include="'../template/Single-product.html'" ></div>	 -->
+									<div ng-include="'../template/Single-comment.html'" ></div>	
+								</div>
+  							
+  						<form id="review-form" ng-submit="productPageVM.functions.createComment()">
+  						
+  						
+  							<!-- Start RAting Area -->
+                                <div class="rating__wrap">
+                                    <h2 class="rating-title">Escribe un comentario</h2>
+                                    <h4 class="rating-title-2">Tu puntuación</h4>
+                                    <div class="rating__list">
+                                        <p class="clasificacion">
+									    <input id="radio1" type="radio" name="estrellas" value="5"
+											data-ng-model="productPageVM.newComment.rating">
+									    <label for="radio1">★</label>
+									    <input id="radio2" type="radio" name="estrellas" value="4"
+											data-ng-model="productPageVM.newComment.rating">
+									    <label for="radio2">★</label>
+									    <input id="radio3" type="radio" name="estrellas" value="3"
+											data-ng-model="productPageVM.newComment.rating">
+									    <label for="radio3">★</label>
+									    <input id="radio4" type="radio" name="estrellas" value="2"
+											data-ng-model="productPageVM.newComment.rating">
+									    <label for="radio4">★</label>
+									    <input id="radio5" type="radio" name="estrellas" value="1"
+											data-ng-model="productPageVM.newComment.rating">
+									    <label for="radio5">★</label>
+									  </p>
+                                    </div>
+                                </div>
+                                <!-- End RAting Area -->
+                                <div class="review__box">
+									<div class="single-review-form">
+										<div class="review-box message">
+											<textarea id="comentario" name="comentario" placeholder="Escriba un comentario"
+												data-ng-model="productPageVM.newComment.description"></textarea>
+										</div>
+									</div>
+									
+									<div class="review-btn ">
+										<input class="fv-btn" type="submit" value="Comentar">
+										</div>	                               		                
+                                </div>
+                        </form> 
+                    </div>
+                            <!-- End Single Content -->
+				</div>
+
+				<div class="row">
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                        <ul class="product__deatils__tab mb--60" role="tablist">
+                            <li role="presentation" class="active">
+                                <a>Favoritos</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="product__details__tab__content">
+							<div ng-repeat="userFavorite in productPageVM.favoritesProduct">										
+								<div class="userFavorite">
+									<img data-ng-src="../images/user/{{userFavorite.image}}"/>
+									<a data-ng-href="/Brukt/private/User.html#!/user/{{userFavorite.id}}">
+										<p>{{userFavorite.username}}</p>
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+		
+
+				<div class="row">
+                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                        <ul class="product__deatils__tab mb--60" role="tablist">
+                            <li role="presentation" class="active">
+                                <a>Relacionado</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+				<div class="row">
+                    <div class="col-md-12">
+                        <div class="product__details__tab__content" >
+                            <!-- Start Single Content -->
+								<div ng-repeat="prod in productPageVM.productsRelacionados">
+									<div ng-include="'../template/Single-product.html'" >
+									 </div>	
+								 </div>
+                            <!-- End Single Content -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Product tab -->

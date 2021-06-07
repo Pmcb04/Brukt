@@ -1,0 +1,105 @@
+<!doctype html >
+<html lang="es" data-ng-app="BruktApp">
+<head>
+	<!-- Start Head Area -->
+	<meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>${param.title}</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="shortcut icon" type="image/x-icon" href="../images/icons/favicon.jpg"/>
+    <link rel="apple-touch-icon" href="../images/icons/apple-touch-icon.png"/>
+    
+     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css"/>
+
+
+    <!-- All css files are included here. -->
+    <!-- Bootstrap fremwork main css -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css"/>
+    <!-- Owl Carousel main css -->
+    <link rel="stylesheet" href="../css/owl.carousel.min.css"/>
+    <link rel="stylesheet" href="../css/owl.theme.default.min.css"/>
+    <!-- This core.css file contents all plugings css file. -->
+    <link rel="stylesheet" href="../css/core.css"/>
+    <!-- Theme shortcodes/elements style -->
+    <link rel="stylesheet" href="../css/shortcode/shortcodes.css"/>
+    <!-- Theme main style -->
+    <link rel="stylesheet" href="../css/style.css"/>
+    <!-- Responsive css -->
+    <link rel="stylesheet" href="../css/responsive.css"/>
+    <!-- User style -->
+    <link rel="stylesheet" href="../css/custom.css"/>
+    <link rel="stylesheet" href="../css/search.css"/>
+
+
+
+	<link rel="stylesheet" href="../css/user.css"/>
+	<link rel="stylesheet" href="../css/product.css"/>	
+	<link rel="stylesheet" href="../css/starts.css"/>	
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+
+
+    <!-- Modernizr JS -->
+    <script src="../js/vendor/modernizr-2.8.3.min.js"></script>
+
+
+     <!-- Include the AngularJS library -->
+     <script src="../js/angular/angular.js"></script>
+     <script src="../js/angular/angular-route.js"></script>
+    <!-- Modules -->
+     <script src="../js/app.js"></script>
+
+	 <script src="../js/factories/categoriesFactory.js"></script>
+	 <script src="../js/factories/commentsFactory.js"></script>
+	 <script src="../js/factories/favoritesFactory.js"></script>
+	 <script src="../js/factories/productsFactory.js"></script>
+	 <script src="../js/factories/usersFactory.js"></script>
+
+	 <script src="../js/controllers/productPageCtrl.js"></script>
+	 <script src="../js/controllers/headerCtrl.js"></script>
+	 <script src="../js/controllers/shopCtrl.js"></script>
+	 <script src="../js/controllers/errorCtrl.js"></script>
+
+	<script>
+	function setText(t) {
+		var elem = document.getElementById('title');
+		elem.style.color = t;
+	}
+	
+	</script>
+	
+    
+</head>
+
+<body>
+
+	<div data-ng-controller="headerCtrl as headerVM" >
+
+		<!-- Start Header Style -->
+		<div ng-include="'../template/Header.html'"></div>
+		<!-- End Header Style -->
+
+		<div data-ng-view></div>
+
+		<!-- Start Search Style -->
+		<div ng-include="'../template/Footer.html'"></div>
+		<!-- End Search Style -->
+
+		<!-- Start Search Style -->
+		<div ng-include="'../template/Foot.html'"></div>
+		<!-- End Search Style -->
+
+	</div>
+	
+
+</body>
+
+</html>
+
+

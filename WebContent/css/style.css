@@ -1731,6 +1731,11 @@ product__style--7
     margin-bottom: 13px;
     text-transform: uppercase;
 }
+
+.filter__list{
+    margin-left: 5px;
+}
+
 .filter__list li span {
     color: #999;
     font-size: 15px;

@@ -1,0 +1,50 @@
+
+        <!-- Start Slider Area -->
+        <div class="slider__container slider--two">
+            <div class="slider__activation__wrap--2">
+                <!-- Start Single Slide -->
+                <div class="slider__full--screen" style="background: rgba(0, 0, 0, 0) url(../images/banner/background.jpg) no-repeat scroll center center / cover ;">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="slider__content--2 text-center">
+                                    <div class="slider__inner--2 text-center">
+                                        <h1>No pierdas tiempo ni dinero</h1>
+                                        <div class="slider__btn">
+                                            <a class="htc__btn" href="ShopServlet.do?id=Todas&name=Todas las catergorias&estado=All&order=asc&search=no&busqueda=&moneda=All&price=All">comprar ahora</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Single Slide -->
+            </div>
+        </div>
+        <!-- Start Banner Area -->
+        <!-- Start Our Product Area -->
+        <section class="htc__best__product__area pb--100 bg__white">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="section__title text-center">
+                            <h2 class="title__line">Escoja su nuevo producto</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="best__product__list clearfix mt--30">
+                		<div ng-repeat="category in ${categories}">
+                            <div ng-include="'../template/Single-category.html'"></div>
+          		        	<!-- <jsp:include page="/WEB-INF/html/Single-category.jsp">
+                				<jsp:param value="${category.name}" name="name"/>
+                				<jsp:param value="${category.image}" name="image"/>
+                				<jsp:param value="${category.id}" name="id"/>
+                			</jsp:include> -->
+						</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Our Product Area -->

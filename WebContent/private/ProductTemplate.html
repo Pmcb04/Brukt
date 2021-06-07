@@ -1,0 +1,92 @@
+    <!-- Start Login Register Area -->
+        <div class="htc__login__register bg__white ptb--150">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3">
+                        <ul class="login__register__menu" role="tablist">
+                            <li data-ng-show="productAddEditVM.functions.where('/addProduct')" role="presentation" class="register active"><p role="tab" data-toggle="tab">Agregar producto</p></li>
+
+                            <li data-ng-show="productAddEditVM.functions.where('/editProduct/' + productAddEditVM.product.id)" role="presentation" class="register active"><p role="tab" data-toggle="tab">Editar producto</p></li> 
+                        </ul>
+                    </div>
+                </div>
+                <!-- Start Login Register Content -->
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3">
+                        <div class="htc__login__register__wrap">
+                            <!-- Start Single Content -->
+                           	<div id="login" role="tabpanel" class="single__tabs__panel tab-pane fade in active">
+                                <form class="login" ng-submit="productAddEditVM.functions.AddEditSwitcher()" method="post" enctype="multipart/form-data">
+								   
+								    <input type="file" name="file" 
+                                        data-ng-model="productAddEditVM.product.image"/>					       	
+                                    <input class="input" type="text" placeholder="Nombre producto" name="name"
+                                        data-ng-model="productAddEditVM.product.title" required>
+
+                                    <input class="input" type="text" placeholder="Descripcion del producto" name="description"
+                                        data-ng-model="productAddEditVM.product.description" required>
+                                    <input class="input" type="number" step="1"    min="1" placeholder="Numero a la venta" name="numero"
+                                        data-ng-model="productAddEditVM.product.stock" required>
+                                    <input class="input" type="number" pattern="^[0-9]{0,12}([,][0-9]{2,2})?$" step="any" min="0.01" placeholder="Precio a la venta por unidad" name="precio"
+                                        data-ng-model="productAddEditVM.product.price" required>
+									
+									<p>Moneda : </p>
+									<select class="input" name="moneda"
+                                            data-ng-model="productAddEditVM.product.currency">
+										<option selected>€</option>
+										<option>$</option>
+										<option>£</option>
+										<option>¥</option>
+									</select>
+			
+									<p>Categoria : </p>
+                                        <select ng-options="category as category.name for category in productAddEditVM.categories track by category.name"  
+                                        data-ng-model="productAddEditVM.product.category"></select>
+
+
+
+                                    <div data-ng-show="productAddEditVM.functions.where('/editProduct/' + productAddEditVM.product.id)">
+                                        <p>Estado : </p>
+                                        <select class="input" name="estado"
+                                            data-ng-model="productAddEditVM.product.soldout">
+                                            <option>En venta</option>
+                                            <option>Vendido</option>
+                                        </select>
+                                    </div>
+									
+									<p>Envio rápido (24h)</p>
+									<label for="si">Si</label><br>
+									<input class="radio" type="radio" id="si" name="rapido" value="Si"
+                                        data-ng-model="productAddEditVM.product.rapido">
+									<label for="no">No</label><br>
+									<input class="radio" type="radio" id="no" name="rapido" value="No"
+                                         data-ng-model="productAddEditVM.product.rapido">
+
+
+                                    <p>Producto Premium</p>
+                                    <label for="si">Si</label><br>
+                                    <input class="radio" type="radio" id="si" name="premium" value="Si"
+                                        data-ng-model="productAddEditVM.product.premium">
+                                    <label for="no">No</label><br>
+                                    <input class="radio" type="radio" id="no" name="premium" value="No"
+                                        data-ng-model="productAddEditVM.product.premium">
+
+                                    <div class="htc__login__btn">
+                                    	<input type="submit" value="Añadir" 
+                                            data-ng-show="productAddEditVM.functions.where('/addProduct')" />
+                                    	<input type="submit" value="Editar" 
+                                            data-ng-show="productAddEditVM.functions.where('/editProduct/' + productAddEditVM.product.id)" />
+                                	</div>
+                                </form>
+
+                               
+                            </div>
+                            <!-- End Single Content -->
+                        </div>
+                    </div>
+                </div>
+                <!-- End Login Register Content -->
+            </div>
+        </div>
+        <!-- End Login Register Area -->
+    

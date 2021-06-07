@@ -1,9 +1,25 @@
-angular.module('') // TODO : poner nombre al modulo
+angular.module('BruktApp')
 .controller('usersCtrl', ['usersFactory','$location','$routeParams',
                     function(usersFactory,$location, $routeParams){
     var userViewModel = this;
     userViewModel.user={};
     userViewModel.functions = {
+
+
+        // Leemos el usuario que esta actualmente logeado
+		readUser : function() {
+
+			usersFactory.getUser()
+				.then(function (response) {
+					console.log("Reading user session Response: ", response);
+					userViewModel.user = response;
+				}), function(response) {
+					console.log("Error reading user");
+					$location.path('/');
+				}		
+			
+		},
+
 
         // Leemos un usuario con el identificador id que pasamos por parametro
 		readUserID : function(id) {
@@ -92,6 +108,7 @@ angular.module('') // TODO : poner nombre al modulo
     }
 
 	console.log("Entering usersCtrl with $routeParams.ID=",$routeParams.ID);
+	userViewModel.functions.readUser();
 
     // TODO mirar si hace falta
     /*

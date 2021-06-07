@@ -1,0 +1,69 @@
+ <div class="pro__review ans" data-ng-controller="headerCtrl as headerVM">
+    <div class="review__details">
+        <div class="review__info">
+            <h4><a href="UserPublicServlet.do?username_user=${param.username}">{{comment.username}}</a></h4>
+            <ul class="rating">
+		    		<div class="estrellas" ng-if="comment.rating==0">
+		                <li><i class="zmdi zmdi-star-outline"></i></li>
+		                <li><i class="zmdi zmdi-star-outline"></i></li>
+		                <li><i class="zmdi zmdi-star-outline"></i></li>		             
+		                <li><i class="zmdi zmdi-star-outline"></i></li>
+		                <li><i class="zmdi zmdi-star-outline"></i></li>
+					</div>
+		    		<div class="estrellas" ng-if="comment.rating==1">
+		    		    <li><i class="zmdi zmdi-star"></i></li>		                
+		    		    <li><i class="zmdi zmdi-star-outline"></i></li>
+		                <li><i class="zmdi zmdi-star-outline"></i></li>
+		                <li><i class="zmdi zmdi-star-outline"></i></li>
+		                <li><i class="zmdi zmdi-star-outline"></i></li>
+					</div>
+		    		<div class="estrellas" ng-if="comment.rating==2">
+		                <li><i class="zmdi zmdi-star"></i></li>
+		                <li><i class="zmdi zmdi-star"></i></li>
+		                <li><i class="zmdi zmdi-star-outline"></i></li>
+		                <li><i class="zmdi zmdi-star-outline"></i></li>
+		                <li><i class="zmdi zmdi-star-outline"></i></li>
+					</div>
+		    		<div class="estrellas" ng-if="comment.rating==3">
+		                <li><i class="zmdi zmdi-star"></i></li>
+		                <li><i class="zmdi zmdi-star"></i></li>
+		                <li><i class="zmdi zmdi-star"></i></li>
+		                <li><i class="zmdi zmdi-star-outline"></i></li>
+		                <li><i class="zmdi zmdi-star-outline"></i></li>
+					</div>
+		    		<div class="estrellas" ng-if="comment.rating==4">
+		                <li><i class="zmdi zmdi-star"></i></li>
+		                <li><i class="zmdi zmdi-star"></i></li>
+		                <li><i class="zmdi zmdi-star"></i></li>
+		                <li><i class="zmdi zmdi-star"></i></li>
+		                <li><i class="zmdi zmdi-star-outline"></i></li>
+					</div>
+		    		<div class="estrellas" ng-if="comment.rating==5">
+		                <li><i class="zmdi zmdi-star"></i></li>
+		                <li><i class="zmdi zmdi-star"></i></li>
+		                <li><i class="zmdi zmdi-star"></i></li>
+		                <li><i class="zmdi zmdi-star"></i></li>
+		                <li><i class="zmdi zmdi-star"></i></li>
+					</div>
+		    		
+            </ul>
+				<div ng-if="comment.username == headerVM.user.username">
+					<div class="rating__send">
+
+								<a class ="favorite_link" >
+									<span data-ng-click="productPageVM.functions.deleteComment( productPageVM.product.id,headerVM.user.username)" 
+									class="material-icons favorite_heart">
+									X
+									</span>
+								</a>
+
+						<!-- <a data-ng-href="/Brukt/private/User.html#!/deleteComment/{{comment.idp}}/{{comment.username}}"><i class="zmdi zmdi-close"></i></a> -->
+					</div>
+				</div>
+        </div>
+        <div class="review__date">
+            <span>{{comment.date}}</span>
+        </div>
+		<p>{{comment.description}}</p>
+    </div>
+</div>

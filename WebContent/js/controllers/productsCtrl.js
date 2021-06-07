@@ -1,8 +1,14 @@
-angular.module('') // TODO : poner nombre al modulo
+angular.module('BruktApp')
 .controller('productsCtrl', ['productsFactory','$location','$routeParams',
                     function(productsFactory,$location, $routeParams){
     var productViewModel = this;
     productViewModel.product={};
+	productViewModel.productsCategory={};
+	productViewModel.productsRelacionados={};
+	productViewModel.productsSold={};
+	productViewModel.productsSoldNumber={};
+	productViewModel.productsSale={};
+	productViewModel.productsSaleNumber={};
     productViewModel.functions = {
 
         // Leemos una producto con el identificador id que pasamos por parametro
@@ -12,6 +18,8 @@ angular.module('') // TODO : poner nombre al modulo
 				.then(function (response) {
 					console.log("Reading product with id: ", id, " Response: ", response);
 					productViewModel.product = response;
+					if(productViewModel.product.idu != productViewModel.user.id)
+						$location.path('/404/');
 				}), function(response) {
 					console.log("Error reading product");
 					$location.path('/');
@@ -82,7 +90,8 @@ angular.module('') // TODO : poner nombre al modulo
 			productsFactory.getUserSold(id, 1)
 				.then(function (response) {
 					console.log("Reading products user with id: ", id, " sold ",  " Response: ", response);
-					productViewModel.product = response;
+					productViewModel.productsSold = response;
+					productViewModel.productsSoldNumber = response.length;
 				}), function(response) {
 					console.log("Error reading product");
 					$location.path('/');
@@ -97,7 +106,8 @@ angular.module('') // TODO : poner nombre al modulo
 			productsFactory.getUserSold(id, 0)
 				.then(function (response) {
 					console.log("Reading products user with id: ", id, " sale ",  " Response: ", response);
-					productViewModel.product = response;
+					productViewModel.productsSale = response;
+					productViewModel.productsSaleNumber = response.length;
 				}), function(response) {
 					console.log("Error reading product");
 					$location.path('/');
@@ -112,7 +122,7 @@ angular.module('') // TODO : poner nombre al modulo
 			productsFactory.getCategoryPrice(id, price)
 				.then(function (response) {
 					console.log("Reading products category with id: ", id, " and price ", price, " Response: ", response);
-					productViewModel.product = response;
+					productViewModel.productsRelacionados = response;
 				}), function(response) {
 					console.log("Error reading product");
 					$location.path('/');
@@ -127,7 +137,7 @@ angular.module('') // TODO : poner nombre al modulo
 			productsFactory.getCategory(id)
 				.then(function (response) {
 					console.log("Reading products category with id: ", id, " Response: ", response);
-					productViewModel.product = response;
+					productViewModel.productsCategory = response;
 				}), function(response) {
 					console.log("Error reading product");
 					$location.path('/');
@@ -136,11 +146,12 @@ angular.module('') // TODO : poner nombre al modulo
 		},
 
         // Creamos un nuevo producto que previamente hemos depositado en el controlador
-		createproduct : function() {
+		createProduct : function() {
 
 	        productsFactory.postProduct(productViewModel.product)
 				.then(function (response) {
-					console.log("Creating product. Response: ", response)
+					console.log("Creating product. Response: ", response);
+					$location.path('/');
 				}), function (response) {
 					console.log("Error creating the product");
 				}
@@ -148,22 +159,24 @@ angular.module('') // TODO : poner nombre al modulo
 		},
 
         // Actualizamos un producto que previamente hemos depositado en el controlador
-		updateproduct : function() {
+		updateProduct : function() {
 
 			productsFactory.putProduct(productViewModel.product)
 				.then(function (response) {
 					console.log("Updating product with id ", productViewModel.product.id, " Response: ", response);
+					$location.path('/');
 				}), function (response) {
 					console.log("Error updating product");
 				}
 		},	
 
         // Borramos un producto con el identificador id que pasamos por parametro
-		deleteproduct : function(id) {
+		deleteProduct : function() {
 
-			productsFactory.deleteProduct(id)
+			productsFactory.deleteProduct(productViewModel.product.id)
 				.then(function (response) {
-					console.log("Deleting product with id ", id, " Response: ", response);
+					console.log("Deleting product with id ", productViewModel.product.id, " Response: ", response);
+					$location.path('/');
 				}), function (response) {
 					console.log("Error deleting product");
 				}
@@ -194,6 +207,10 @@ angular.module('') // TODO : poner nombre al modulo
     }
 
 	console.log("Entering productsCtrl with $routeParams.ID=",$routeParams.ID);
+	productViewModel.functions.readProductsUserSale($routeParams.ID);
+	productViewModel.functions.readProductsUserSold($routeParams.ID);
+	productViewModel.functions.readProductID($routeParams.ID);
+	productViewModel.functions.readProductsCategory($routeParams.NOMBRE);
 
     // TODO ¿hace falta?
     /*

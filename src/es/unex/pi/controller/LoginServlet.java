@@ -54,7 +54,7 @@ public class LoginServlet extends HttpServlet {
 		System.out.println(user);
 		
 		if(user != null) {
-			response.sendRedirect("user/UserServlet.do");			
+			response.sendRedirect("private/User.html#!/user/" + user.getId());			
 		}
 		else {
 			RequestDispatcher view = request.getRequestDispatcher("/WEB-INF/html/Login.jsp");

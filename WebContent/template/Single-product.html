@@ -1,0 +1,85 @@
+<div class="col-md-3 single__pro col-lg-3 hidden-sm col-xs-12 cat--4">
+   
+	<div class="product foo">
+    
+        <div class="product__inner">
+            <div class="pro__thumb">
+                <a data-ng-href="/Brukt/public/Tienda.html#!/shop/{{prod.category}}/{{ prod.id }}">
+                   	<div class = "box">
+	                   	<img class="image_shop" data-ng-src="../images/product/{{ prod.image }}" alt="product images">
+                   	</div>
+                </a>
+                
+            </div>
+            
+		    		<div ng-if="prod.soldout == 1">
+			            <div class="vendido_icon">
+			            	<img alt="icono de vendido" data-ng-src="../images/icons/venta.png">
+			            </div>
+		    		</div>
+        </div>
+        
+		<div ng-if="prod.premium == 'Si'">
+			<div class="product-details premium">
+				<div class="favorites_prod">
+					<label class="num_fav">{{ prod.favorites }}</label>
+	
+						<div ng-if="prod.favorite_user==true" style="float: right;">
+							<span class="material-icons favorite_heart">favorite</span>
+						</div>
+	
+						<div ng-if="prod.favorite_user==false" style="float: right;">
+							 <span class="material-icons favorite_heart">favorite_border</span>
+						</div>
+	
+	
+				</div>
+				<h4><a data-ng-href="/Brukt/public/Tienda.html#!/shop/{{ prod.id }}">{{prod.title}}</a></h4>
+					
+				<div class="product-bottom-details">
+					<div class="product-price">{{ prod.price }} {{ prod.currency }}</div>
+					<div ng-if="prod.idu == headerVM.user.id">
+						<div class="icons_profile"> 
+							<a data-ng-href="/Brukt/private/User.html#!/deleteProduct/{{ prod.id}}"><span style = "font-size: 17px;" class="material-icons">delete</span></a>
+							<a data-ng-href="/Brukt/private/User.html#!/editProduct/{{ prod.id}}"><span style = "font-size: 17px;" class="material-icons">edit</span></a> 
+						</div>
+					</div>
+				</div>
+			</div>	
+
+		</div>
+
+        
+
+		<div ng-if="prod.premium == 'No'">
+			<div class="product-details noPremium">
+				<div class="favorites_prod">
+					<label class="num_fav">{{ prod.favorites }}</label>
+
+						<div ng-if="prod.favorite_user==true" style="float: right;">
+							<span class="material-icons favorite_heart">favorite</span>
+						</div>
+
+						<div ng-if="prod.favorite_user==false" style="float: right;">
+							<span class="material-icons favorite_heart">favorite_border</span>
+						</div>
+
+
+				</div>
+				<h4><a data-ng-href="/Brukt/public/Tienda.html#!/shop/{{ prod.id }}">{{prod.title}}</a></h4>
+					
+				<div class="product-bottom-details">
+					<div class="product-price">{{ prod.price }} {{ prod.currency }}</div>
+					<div ng-if="prod.idu == headerVM.user.id">
+						<div class="icons_profile"> 
+							<a data-ng-href="/Brukt/private/User.html#!/deleteProduct/{{ prod.id}}"><span style = "font-size: 17px;" class="material-icons">delete</span></a>
+							<a data-ng-href="/Brukt/private/User.html#!/editProduct/{{ prod.id}}"><span style = "font-size: 17px;" class="material-icons">edit</span></a> 
+						</div>
+					</div>
+				</div>
+			</div>	
+		</div>	
+
+    </div>
+
+</div>

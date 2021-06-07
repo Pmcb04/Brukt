@@ -11,6 +11,16 @@
 	You can put your custom css code here: 
 -------------------------------------------------------*/
 
+.tabsdemoDynamicHeight md-content h1:first-child {
+  margin-top: 0; }
+
+
+/*
+Copyright 2020 Google LLC. All Rights Reserved. 
+Use of this source code is governed by an MIT-style license that can be found
+in the LICENSE file at http://material.angularjs.org/HEAD/license.
+*/
+
 
 .banner_black h2{
   color: #000;
@@ -137,6 +147,7 @@
 
 .favorite_heart{
 	color: #ff4136;
+  margin-left: 2px;
 	font-size: 15px;
 }
 
@@ -330,4 +341,13 @@
     width: 86px;
     height: 86px;
   }
+}
+
+
+.premium{
+  background-color: #63E686;
+}
+
+.noPremium{
+  background-color: #E69063;
 }

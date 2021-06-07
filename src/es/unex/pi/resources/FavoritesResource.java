@@ -79,6 +79,9 @@ public class FavoritesResource {
 				
 			FavoriteDAO favoriteDao = new JDBCFavoriteDAOImpl();
 			favoriteDao.setConnection(conn);
+
+			UserDAO userDao = new JDBCUserDAOImpl();
+			userDao.setConnection(conn);
 		
 		  //2. You must obtain the user that has logged into the system
 			
@@ -90,8 +93,8 @@ public class FavoritesResource {
 		  //   otherwise 
 		  //       throw a CustomNotFoundException with the id of the order not found
 			
-			if(user.getRole().equals("Manager") || user.getId() == userid) return favoriteDao.getAllByUser(userid);
-			else throw new CustomNotFoundException("Favorite with userid (" + userid + ") is not found");
+			if(userDao.exist(userDao.get(userid).getUsername())) return favoriteDao.getAllByUser(userid);
+			else throw new CustomNotFoundException("Favorites userid (" + userid + ") is not found");
 	  }
 
 

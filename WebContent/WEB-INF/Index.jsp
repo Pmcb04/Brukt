@@ -78,7 +78,7 @@
                                     <div class="slider__inner--2 text-center">
                                         <h1>No pierdas tiempo ni dinero</h1>
                                         <div class="slider__btn">
-                                            <a class="htc__btn" href="ShopServlet.do?id=Todas&name=Todas las catergorias&estado=All&order=asc&search=no&busqueda=&moneda=All&price=All">comprar ahora</a>
+                                            <a class="htc__btn" href="ShopServlet.do?id=Todas&order=asc&estado=All&moneda=All&price=All&search=no&premium=All">comprar ahora</a>
                                         </div>
                                     </div>
                                 </div>

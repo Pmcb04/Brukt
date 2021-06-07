@@ -72,8 +72,7 @@ public class ProductsResource {
 		  //   otherwise, return the products of the current user
 		  // TODO : ¿tiene sentido?
 			
-			if(user.getRole().equals("Manager")) return productDao.getAll();
-			else return productDao.getAllByUser(user.getId());
+		 return productDao.getAllByUser(user.getId());
 		  
 	  }
 	  
@@ -102,7 +101,7 @@ public class ProductsResource {
 		  //   otherwise 
 		  //       throw a CustomNotFoundException with the id of the order not found
 			
-			if(productDao.get(productid) != null && (user.getRole().equals("Manager") || user.getId() == productDao.get(productid).getIdu())) return productDao.get(productid);
+			if(productDao.get(productid) != null) return productDao.get(productid);
 			else throw new CustomNotFoundException("Product (" + productid + ") is not found");
 	  }
 
@@ -203,7 +202,7 @@ public class ProductsResource {
 		  //   otherwise 
 		  //       throw a CustomNotFoundException with the id of the order not found
 		
-			if(userDao.exist(userDao.get(userId).getUsername()) && (user.getRole().equals("Manager") || user.getId() == userId)) return productDao.getAllByUser(userId);
+			if(userDao.exist(userDao.get(userId).getUsername())) return productDao.getAllByUser(userId);
 			else throw new CustomNotFoundException("Products with id user  (" + userId + ") is not found");
 
 	  }
@@ -239,7 +238,7 @@ public class ProductsResource {
 		  //       throw a CustomNotFoundException with the id of the order not found
 		
 			if(userDao.exist(userDao.get(userId).getUsername()) && soldId == 0) return productDao.getAllByUserSale(userId);
-			else if(user != null && userDao.exist(userDao.get(userId).getUsername()) && (user.getRole().equals("Manager") || user.getId() == userId) && soldId > 0) return productDao.getAllByUserSold(userId);
+			else if(user != null && userDao.exist(userDao.get(userId).getUsername()) && soldId > 0) return productDao.getAllByUserSold(userId);
 			else throw new CustomNotFoundException("Products with id user  (" + userId + ") is not found");
 
 	  }
@@ -303,7 +302,8 @@ public class ProductsResource {
 		  //   otherwise 
 		  //       throw a CustomNotFoundException with the id of the order not found
 			
-			if(categoryDao.exist(categoryId)) return productDao.getAllByCategory(categoryId);
+			if(categoryDao.exist(categoryId) && !categoryId.equals("Todas")) return productDao.getAllByCategory(categoryId);
+			else if(categoryDao.exist(categoryId) && categoryId.equals("Todas")) return productDao.getAll();
 			else throw new CustomNotFoundException("Category (" + categoryId + ") is not found");
 	  }
 
@@ -386,6 +386,7 @@ public class ProductsResource {
         newProduct.setPrice(Float.parseFloat(formParams.getFirst("price")));
         newProduct.setImage(formParams.getFirst("image"));
         newProduct.setRapido(formParams.getFirst("rapido"));
+        newProduct.setPremium(formParams.getFirst("premium"));
 		newProduct.setIdu(Long.parseLong(formParams.getFirst("idu")));
 
 

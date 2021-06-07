@@ -1,0 +1,324 @@
+<div class="ht__bradcaump__area banner_white" style="background: rgba(0, 0, 0, 0) url(../images/banner/cart.jpg) no-repeat scroll center center / cover ;">
+	<div class="ht__bradcaump__wrap">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="bradcaump__inner text-center">
+						<h2 class="bradcaump-title">Tienda</h2>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>  
+	 
+	 
+
+<!-- Start Our Product Area -->
+<section class="htc__product__area shop__page bg__white" style=" margin-top: 20px; margin-left: 20px;">
+	
+	<div class="container" style="width:25%; float:left;">
+
+		<div class="row">
+			<div class="col-md-12">	
+				<div class="filter__content">
+					<!-- Start Single Content -->                                    
+					<div class="fiter__content__inner">
+						<div class="single__filter">
+							<h2>Ordenar por</h2>
+							<ul class="filter__list">
+
+									<div ng-if="shopVM.order == 'asc'">
+										<li class="filter_act"><a data-ng-href="#!/shop/{{shopVM.category}}/asc/{{shopVM.estado}}/{{shopVM.moneda}}/{{shopVM.price}}/{{shopVM.search}}/{{shopVM.premium}}">Nombre ascendente</a></li>
+									</div>
+									<div ng-if="shopVM.order != 'asc'">
+										<li><a data-ng-href="#!/shop/{{shopVM.category}}/asc/{{shopVM.estado}}/{{shopVM.moneda}}/{{shopVM.price}}/{{shopVM.search}}/{{shopVM.premium}}">Nombre ascendente</a></li>
+									</div>	
+								
+									<div ng-if="shopVM.order == 'desc'">
+											<li class="filter_act"><a data-ng-href="#!/shop/{{shopVM.category}}/desc/{{shopVM.estado}}/{{shopVM.moneda}}/{{shopVM.price}}/{{shopVM.search}}/{{shopVM.premium}}">Nombre descendente</a></li>
+									</div>
+									<div ng-if="shopVM.order != 'desc'">
+											<li><a data-ng-href="#!/shop/{{shopVM.category}}/desc/{{shopVM.estado}}/{{shopVM.moneda}}/{{shopVM.price}}/{{shopVM.search}}/{{shopVM.premium}}">Nombre descendente</a></li>
+									</div>
+								
+									<div ng-if="shopVM.order == 'ascF'">
+											<li class="filter_act"><a data-ng-href="#!/shop/{{shopVM.category}}/ascF/{{shopVM.estado}}/{{shopVM.moneda}}/{{shopVM.price}}/{{shopVM.search}}/{{shopVM.premium}}">Número favoritos ascendente</a></li>
+									</div>
+									<div ng-if="shopVM.order != 'ascF'">
+											<li><a data-ng-href="#!/shop/{{shopVM.category}}/ascF/{{shopVM.estado}}/{{shopVM.moneda}}/{{shopVM.price}}/{{shopVM.search}}/{{shopVM.premium}}">Número favoritos ascendente</a></li>
+									</div>
+							
+									<div ng-if="shopVM.order == 'descF'">
+											<li class="filter_act"><a data-ng-href="#!/shop/{{shopVM.category}}/descF/{{shopVM.estado}}/{{shopVM.moneda}}/{{shopVM.price}}/{{shopVM.search}}/{{shopVM.premium}}">Número favoritos descendente</a></li>
+									</div>
+									<div ng-if="shopVM.order != 'descF'">
+											<li><a data-ng-href="#!/shop/{{shopVM.category}}/descF/{{shopVM.estado}}/{{shopVM.moneda}}/{{shopVM.price}}/{{shopVM.search}}/{{shopVM.premium}}">Número favoritos descendente</a></li>
+									</div>
+							
+									<div ng-if="shopVM.order == 'ascC'">
+											<li class="filter_act"><a data-ng-href="#!/shop/{{shopVM.category}}/ascC/{{shopVM.estado}}/{{shopVM.moneda}}/{{shopVM.price}}/{{shopVM.search}}/{{shopVM.premium}}">Número comentarios ascendente</a></li>
+									</div>
+									<div ng-if="shopVM.order != 'ascC'">
+											<li><a data-ng-href="#!/shop/{{shopVM.category}}/ascC/{{shopVM.estado}}/{{shopVM.moneda}}/{{shopVM.price}}/{{shopVM.search}}/{{shopVM.premium}}">Número comentarios ascendente</a></li>
+									</div>
+							
+									<div ng-if="shopVM.order == 'descC'">
+											<li class="filter_act"><a data-ng-href="#!/shop/{{shopVM.category}}/descC/{{shopVM.estado}}/{{shopVM.moneda}}/{{shopVM.price}}/{{shopVM.search}}/{{shopVM.premium}}">Número comentarios descendente</a></li>
+									</div>
+									<div ng-if="shopVM.order != 'descC'">
+											<li><a data-ng-href="#!/shop/{{shopVM.category}}/descC/{{shopVM.estado}}/{{shopVM.moneda}}/{{shopVM.price}}/{{shopVM.search}}/{{shopVM.premium}}">Número comentarios descendente</a></li>
+									</div>	
+							
+							
+							</ul>
+						</div>
+						<div class="single__filter">
+							<h2>Estado del producto</h2>
+							<ul class="filter__list">
+
+									<div ng-if="shopVM.estado == 'All'">
+											<li class="filter_act"><a data-ng-href="#!/shop/{{shopVM.category}}/{{shopVM.order}}/All/{{shopVM.moneda}}/{{shopVM.price}}/{{shopVM.search}}/{{shopVM.premium}}">Todos</a></li>
+									</div>
+									<div ng-if="shopVM.estado != 'All'">
+											<li><a data-ng-href="#!/shop/{{shopVM.category}}/{{shopVM.order}}/All/{{shopVM.moneda}}/{{shopVM.price}}/{{shopVM.search}}/{{shopVM.premium}}}">Todos</a></li>
+									</div>
+							
+									<div ng-if="shopVM.estado == 'EnVenta'">
+											<li class="filter_act"><a data-ng-href="#!/shop/{{shopVM.category}}/{{shopVM.order}}/EnVenta/{{shopVM.moneda}}/{{shopVM.price}}/{{shopVM.search}}/{{shopVM.premium}}">En venta</a></li>
+									</div>
+									<div ng-if="shopVM.estado != 'EnVenta'">
+											<li><a data-ng-href="#!/shop/{{shopVM.category}}/{{shopVM.order}}/EnVenta/{{shopVM.moneda}}/{{shopVM.price}}/{{shopVM.search}}/{{shopVM.premium}}">En venta</a></li>
+									</div>
+							
+								
+							
+									<div ng-if="shopVM.estado == 'Vendidos'">
+											<li class="filter_act"><a data-ng-href="#!/shop/{{shopVM.category}}/{{shopVM.order}}/Vendidos/{{shopVM.moneda}}/{{shopVM.price}}/{{shopVM.search}}/{{shopVM.premium}}">Vendidos</a></li>
+									</div>
+									<div ng-if="shopVM.estado != 'Vendidos'">
+											<li><a data-ng-href="#!/shop/{{shopVM.category}}/{{shopVM.order}}/Vendidos/{{shopVM.moneda}}/{{shopVM.price}}/{{shopVM.search}}/{{shopVM.premium}}">Vendidos</a></li>
+									</div>	
+							
+							</ul>
+						</div>
+						<div class="single__filter">
+							<h2>Moneda</h2>
+							<ul class="filter__list">
+							
+									<div ng-if="shopVM.moneda == 'All'">
+											<li class="filter_act"><a data-ng-href="#!/shop/{{shopVM.category}}/{{shopVM.order}}/{{shopVM.estado}}/All/{{shopVM.price}}/{{shopVM.search}}/{{shopVM.premium}}">Todas</a></li>
+									</div>
+									<div ng-if="shopVM.moneda != 'All'">
+											<li><a data-ng-href="#!/shop/{{shopVM.category}}/{{shopVM.order}}/{{shopVM.estado}}/All/{{shopVM.price}}/{{shopVM.search}}/{{shopVM.premium}}}">Todas</a></li>
+									</div>	
+						
+									<div ng-if="shopVM.moneda == 'euro'">
+											<li class="filter_act"><a data-ng-href="#!/shop/{{shopVM.category}}/{{shopVM.order}}/{{shopVM.estado}}/euro/{{shopVM.price}}/{{shopVM.search}}/{{shopVM.premium}}">Euro(&euro;)</a></li>
+									</div>
+
+									<div ng-if="shopVM.moneda != 'euro'">
+											<li><a data-ng-href="#!/shop/{{shopVM.category}}/{{shopVM.order}}/{{shopVM.estado}}/euro/{{shopVM.price}}/{{shopVM.search}}/{{shopVM.premium}}">Euro(&euro;)</a></li>
+									</div>	
+							
+
+									<div ng-if="shopVM.moneda == 'dolar'">
+											<li class="filter_act"><a data-ng-href="#!/shop/{{shopVM.category}}/{{shopVM.order}}/{{shopVM.estado}}/dolar/{{shopVM.price}}/{{shopVM.search}}/{{shopVM.premium}}">Dolar($)</a></li>
+									</div>
+									<div ng-if="shopVM.moneda != 'dolar'">
+											<li><a data-ng-href="#!/shop/{{shopVM.category}}/{{shopVM.order}}/{{shopVM.estado}}/dolar/{{shopVM.price}}/{{shopVM.search}}/{{shopVM.premium}}">Dolar($)</a></li>
+									</div>
+								
+
+									<div ng-if="shopVM.moneda == 'pound'">
+											<li class="filter_act"><a data-ng-href="#!/shop/{{shopVM.category}}/{{shopVM.order}}/{{shopVM.estado}}/pound/{{shopVM.price}}/{{shopVM.search}}/{{shopVM.premium}}">Libra(&pound;)</a></li>
+									</div>
+									<div ng-if="shopVM.moneda != 'pound'">
+											<li><a data-ng-href="#!/shop/{{shopVM.category}}/{{shopVM.order}}/{{shopVM.estado}}/pound/{{shopVM.price}}/{{shopVM.search}}/{{shopVM.premium}}">Libra(&pound;)</a></li>
+									</div>
+							
+
+									<div ng-if="shopVM.moneda == 'yen'">
+											<li class="filter_act"><a data-ng-href="#!/shop/{{shopVM.category}}/{{shopVM.order}}/{{shopVM.estado}}/yen/{{shopVM.price}}/{{shopVM.search}}/{{shopVM.premium}}">Yen(&yen;)</a></li>
+									</div>
+									<div ng-if="shopVM.moneda != 'yen'">
+											<li><a data-ng-href="#!/shop/{{shopVM.category}}/{{shopVM.order}}/{{shopVM.estado}}/yen/{{shopVM.price}}/{{shopVM.search}}/{{shopVM.premium}}}">Yen(&yen;)</a></li>
+									</div>
+				
+							</ul>
+						</div>
+						
+						<div class="single__filter">
+							<h2>Precio</h2>
+							<ul class="filter__list">
+							
+									<div ng-if="shopVM.price == 'All'">
+											<li class="filter_act"><a data-ng-href="#!/shop/{{shopVM.category}}/{{shopVM.order}}/{{shopVM.estado}}/{{shopVM.moneda}}/All/{{shopVM.search}}/{{shopVM.premium}}">Todos</a></li>
+									</div>
+									<div ng-if="shopVM.price != 'All'">
+											<li><a data-ng-href="#!/shop/{{shopVM.category}}/{{shopVM.order}}/{{shopVM.estado}}/{{shopVM.moneda}}/All/{{shopVM.search}}/{{shopVM.premium}}">Todos</a></li>
+									</div>
+				
+								
+									<div ng-if="shopVM.price == '1'">
+											<li class="filter_act"><a data-ng-href="#!/shop/{{shopVM.category}}/{{shopVM.order}}/{{shopVM.estado}}/{{shopVM.moneda}}/1/{{shopVM.search}}/{{shopVM.premium}}">0-50</a></li>
+									</div>
+									<div ng-if="shopVM.price != '1'">
+											<li><a data-ng-href="#!/shop/{{shopVM.category}}/{{shopVM.order}}/{{shopVM.estado}}/{{shopVM.moneda}}/1/{{shopVM.search}}/{{shopVM.premium}}">0-50</a></li>
+									</div>
+					
+								
+									<div ng-if="shopVM.price == '2'">
+											<li class="filter_act"><a data-ng-href="#!/shop/{{shopVM.category}}/{{shopVM.order}}/{{shopVM.estado}}/{{shopVM.moneda}}/2/{{shopVM.search}}/{{shopVM.premium}}">50-100</a></li>
+									</div>
+									<div ng-if="shopVM.price != '2'">
+											<li><a data-ng-href="#!/shop/{{shopVM.category}}/{{shopVM.order}}/{{shopVM.estado}}/{{shopVM.moneda}}/2/{{shopVM.search}}/{{shopVM.premium}}">50-100</a></li>
+									</div>	
+				
+
+									<div ng-if="shopVM.price == '3'">
+											<li class="filter_act"><a data-ng-href="#!/shop/{{shopVM.category}}/{{shopVM.order}}/{{shopVM.estado}}/{{shopVM.moneda}}/3/{{shopVM.search}}/{{shopVM.premium}}">100-500</a></li>
+									</div>
+									<div ng-if="shopVM.price != '3'">
+											<li><a data-ng-href="#!/shop/{{shopVM.category}}/{{shopVM.order}}/{{shopVM.estado}}/{{shopVM.moneda}}/3/{{shopVM.search}}/{{shopVM.premium}}">100-500</a></li>
+									</div>
+		
+								
+									<div ng-if="shopVM.price == '4'">
+											<li class="filter_act"><a data-ng-href="#!/shop/{{shopVM.category}}/{{shopVM.order}}/{{shopVM.estado}}/{{shopVM.moneda}}/4/{{shopVM.search}}/{{shopVM.premium}}">+500</a></li>
+									</div>
+									<div ng-if="shopVM.price != '4'">
+											<li><a data-ng-href="#!/shop/{{shopVM.category}}/{{shopVM.order}}/{{shopVM.estado}}/{{shopVM.moneda}}/4/{{shopVM.search}}/{{shopVM.premium}}">+500</a></li>
+									</div>
+		
+							</ul>
+						</div>
+
+
+						<div class="single__filter">
+							<h2>Premium</h2>
+							<ul class="filter__list">
+							
+									<div ng-if="shopVM.premium == 'All'">
+											<li class="filter_act"><a data-ng-href="#!/shop/{{shopVM.category}}/{{shopVM.order}}/{{shopVM.estado}}/{{shopVM.moneda}}/All/{{shopVM.search}}/All">Todos</a></li>
+									</div>
+									<div ng-if="shopVM.premium != 'All'">
+											<li><a data-ng-href="#!/shop/{{shopVM.category}}/{{shopVM.order}}/{{shopVM.estado}}/{{shopVM.moneda}}/All/{{shopVM.search}}/All">Todos</a></li>
+									</div>
+				
+								
+									<div ng-if="shopVM.premium == 'si'">
+											<li class="filter_act"><a data-ng-href="#!/shop/{{shopVM.category}}/{{shopVM.order}}/{{shopVM.estado}}/{{shopVM.moneda}}/{{shopVM.price}}/{{shopVM.search}}/si">Si</a></li>
+									</div>
+									<div ng-if="shopVM.premium != 'si'">
+											<li><a data-ng-href="#!/shop/{{shopVM.category}}/{{shopVM.order}}/{{shopVM.estado}}/{{shopVM.moneda}}/{{shopVM.price}}/{{shopVM.search}}/si">Si</a></li>
+									</div>
+					
+								
+									<div ng-if="shopVM.premium == 'no'">
+											<li class="filter_act"><a data-ng-href="#!/shop/{{shopVM.category}}/{{shopVM.order}}/{{shopVM.estado}}/{{shopVM.moneda}}/{{shopVM.price}}/{{shopVM.search}}/no">No</a></li>
+									</div>
+									<div ng-if="shopVM.premium != 'no'">
+											<li><a data-ng-href="#!/shop/{{shopVM.category}}/{{shopVM.order}}/{{shopVM.estado}}/{{shopVM.moneda}}/{{shopVM.price}}/{{shopVM.search}}/no">No</a></li>
+									</div>	
+		
+							</ul>
+						</div>
+
+
+
+						<div class="single__filter">
+							<h2>Categoria</h2>
+							<ul class="filter__list">
+								<div ng-repeat="cat in shopVM.categories">
+									<div ng-if="cat.id == shopVM.category">
+											<li class="filter_act"><a data-ng-href="#!/shop/{{cat.id}}/{{shopVM.order}}/{{shopVM.estado}}/{{shopVM.moneda}}/{{shopVM.price}}/{{shopVM.search}}/{{shopVM.premium}}">{{cat.name}}</a></li>
+									</div>
+									<div ng-if="cat.id != shopVM.category">
+											<li><a data-ng-href="#!/shop/{{cat.id}}/{{shopVM.order}}/{{shopVM.estado}}/{{shopVM.moneda}}/{{shopVM.price}}/{{shopVM.search}}/{{shopVM.premium}}">{{cat.name}}</a></li>
+									</div>	
+								
+								</div>	
+							</ul>
+						</div>
+					  </div>
+					<!-- End Single Content -->
+					</div>
+				</div>
+			</div>
+	</div>
+
+	<div class="container" style="float:left;">
+			<!-- Start Product MEnu -->
+			<div class="row">
+
+					<div class="col-md-12" id="header">
+						<div class="filter__menu__container">
+							<div class="product__menu">
+									<div ng-if="shopVM.search != 'no'">
+										<a href="#!/shop/{{shopVM.category}}/{{shopVM.order}}/{{shopVM.estado}}/{{shopVM.moneda}}/{{shopVM.price}}/no//{{shopVM.premium}}">X</a>
+										<button data-filter="*"  class="is-checked" style="margin-top: 10px;">Busqueda : {{shopVM.search}}</button>
+									</div>
+
+									<div ng-if="shopVM.search == 'no'">
+										<button data-filter="*"  class="is-checked" style="margin-top: 10px;">{{shopVM.nameCategory}}</button>
+									</div>
+							</div>
+						</div>
+					</div>
+			</div>
+
+			<div class="row">
+					<div class="col-md-12" id="menu">		<!-- End Product MEnu -->
+						
+						<div ng-if="shopVM.order == 'asc'">
+							<div ng-repeat="prod in shopVM.shopProds | orderBy: '+title'">
+								<div ng-include="'../template/Single-product.html'" >
+								</div>
+							</div>
+						</div>
+					
+						<div ng-if="shopVM.order == 'desc'">
+							<div ng-repeat="prod in shopVM.shopProds | orderBy: '-title'">
+								<div ng-include="'../template/Single-product.html'" >
+								</div>
+							</div>
+						</div>
+					
+						<div ng-if="shopVM.order == 'ascF'">
+							<div ng-repeat="prod in shopVM.shopProds | orderBy: '+favorites'">
+								<div ng-include="'../template/Single-product.html'" >
+								</div>
+							</div>
+						</div>
+				
+						<div ng-if="shopVM.order == 'descF'">
+							<div ng-repeat="prod in shopVM.shopProds | orderBy: '-favorites'">
+								<div ng-include="'../template/Single-product.html'" >
+								</div>
+							</div>
+						</div>
+				
+						<div ng-if="shopVM.order == 'ascC'">
+							<div ng-repeat="prod in shopVM.shopProds | orderBy: '+comments'">
+								<div ng-include="'../template/Single-product.html'" >
+								</div>
+							</div>
+						</div>
+				
+						<div ng-if="shopVM.order == 'descC'">
+							<div ng-repeat="prod in shopVM.shopProds | orderBy: '-comments'">
+								<div ng-include="'../template/Single-product.html'" >
+								</div>
+							</div>
+						</div>
+					</div>	
+			</div>
+
+		
+			<!-- End Filter Menu -->
+	</div>
+
+
+</section>
+<!-- End Our Product Area -->

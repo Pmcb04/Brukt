@@ -1,0 +1,19 @@
+	<div class="container">
+     	<div class="row">
+         	
+         	<form class="delete" data-ng-submit="deleteVM.functions.deleteSwitcher()">
+         		<div class="col-md-6 col-md-offset-3">
+					<h1 data-ng-show="deleteVM.functions.where('/deleteProduct/'+ deleteVM.productDelete.id)">
+						¿Desea borrar el producto {{deleteVM.productDelete.title}}?</h1>
+					<h1 data-ng-show="deleteVM.functions.where('/deleteComment/'+ deleteVM.commentDelete.idp + '/' + deleteVM.commentDelete.username)">
+						¿Desea borrar el comentario del producto {{deleteVM.productDelete.title}} ?</h1>
+					<h1 data-ng-show="deleteVM.functions.where('/deleteUser/'+ deleteVM.userDelete.id)">
+						¿Realmente desea borrar su perfil {{deleteVM.userDelete.username}} ? Este proceso no tendrá vuelta atras.</h1>
+					<div class="htc__login__btn delete_user">
+						<input type="submit" value="Eliminar" />
+		 			</div>
+    		</div>
+    		</form>
+		</div>
+		
+	 </div>

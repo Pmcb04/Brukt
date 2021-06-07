@@ -135,8 +135,12 @@ public class CommentsResource {
 		  //   otherwise 
 		  //       throw a CustomNotFoundException with the id of the order not found
 
-			if(productDao.exist(productid)) return commentDao.getAllByRatingProduct(rating, productid);
-			else throw new CustomNotFoundException("Comments with id (" + productid + ") and rating ("+ rating + ") is not found");
+		   	if(rating == 6) return commentDao.getAllByProduct(productid);
+            else{
+				if(productDao.exist(productid)) return commentDao.getAllByRatingProduct(rating, productid);
+				else throw new CustomNotFoundException("Comments with id (" + productid + ") and rating ("+ rating + ") is not found");
+			}
+			
 	  }
 
 	  

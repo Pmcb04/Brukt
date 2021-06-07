@@ -1,10 +1,10 @@
-angular.module('') // TODO : poner nombre al modulo
+angular.module('BruktApp')
 .factory('usersFactory',['$http', function($http){
 	var url = 'https://localhost:8443/Brukt/rest/users/';
     var usersInterface = {
 
 		// Obtenemos todos los usuarios del sistema
-    	getUsers : function(){
+    	getUser : function(){
 
 			return $http.get(url)
 				.then(function (response) {
@@ -16,8 +16,8 @@ angular.module('') // TODO : poner nombre al modulo
 		// Obtenemos el usuario que le pasemos el ID por paramtro
     	getUserID : function(id){
 
-    		url = url + "id/" + id;
-            return $http.get(url)
+    		var newurl = url + "id/" + id;
+            return $http.get(newurl)
               	.then(function(response){
         			 return response.data;
                	});
@@ -26,8 +26,8 @@ angular.module('') // TODO : poner nombre al modulo
 		// Obtenemos el usuario que le pasemos el Username por parametro
 		getUserUsername : function(username){
 			
-    		url = url + "username/" +username;
-            return $http.get(url)
+    		var newurl = url + "username/" +username;
+            return $http.get(newurl)
               	.then(function(response){
         			 return response.data;
                	});
@@ -46,8 +46,8 @@ angular.module('') // TODO : poner nombre al modulo
 		// Actualizamos un usuario que le pasamos por parametro
     	putUser: function(user){
 
-			var url = url + user.id;
-			return $http.put(url, user)
+			var newurl = url + user.id;
+			return $http.put(newurl, user)
 				.then(function (response) {
 					return response.status;
 				});
@@ -56,8 +56,8 @@ angular.module('') // TODO : poner nombre al modulo
 		// Borramos un usuario que le pasamos su id por parametro
         deleteUser : function(id){
 
-			url = url + id;
-			return $http.delete(url)
+			var newurl = url + id;
+			return $http.delete(newurl)
 				.then(function (response) {
 					return response.status;
 				});

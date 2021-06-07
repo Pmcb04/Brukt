@@ -1,9 +1,24 @@
-angular.module('') // TODO : poner nombre al modulo
+angular.module('BruktApp')
 .controller('categoriesCtrl', ['categoriesFactory','$location','$routeParams',
                     function(categoriesFactory,$location, $routeParams){
     var categoryViewModel = this;
     categoryViewModel.category={};
+    categoryViewModel.categories={};
     categoryViewModel.functions = {
+
+		// Leemos todas las categorias que se encuentran disponibles
+		readCategories: function () {
+			categoriesFactory.getCategories()
+				.then(function (response) {
+					console.log("Reading categories Response: ", response);
+					categoryViewModel.categories = response;
+				}), function(response) {
+					console.log("Error reading category");
+					$location.path('/');
+				}		
+			
+		},
+
 
         // Leemos una categoria con el identificador id que pasamos por parametro
 		readCategoryID : function(id) {
@@ -92,6 +107,8 @@ angular.module('') // TODO : poner nombre al modulo
     }
 
 	console.log("Entering categoriesCtrl with $routeParams.ID=",$routeParams.ID);
+	categoryViewModel.functions.readCategoryID($routeParams.NOMBRE);
+	categoryViewModel.functions.readCategories();
 
     // TODO ¿hace falta?
     /*

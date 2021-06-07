@@ -10,7 +10,7 @@
                                     </div>
                                     <div class="bst__pro__hover__info">
                                         <div class="bst__pro__hover__action">
-                                            <h2><a class="category_name" href="ShopServlet.do?id=${param.id}&name=${param.name}&estado=All&order=asc&search=no&busqueda=&moneda=All&price=All">${param.name}</a></h2>
+                                            <h2><a class="category_name" href="ShopServlet.do?id=${param.id}&name=${param.name}&estado=All&order=asc&search=no&busqueda=&moneda=All&price=All&premium=All">${param.name}</a></h2>
                                         </div>
                                     </div>
                                 </div>

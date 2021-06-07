@@ -1,8 +1,13 @@
-angular.module('') // TODO : poner nombre al modulo
+angular.module('BruktApp')
 .controller('favoritesCtrl', ['favoritesFactory','$location','$routeParams',
                     function(favoritesFactory,$location, $routeParams){
     var favoriteViewModel = this;
-    favoriteViewModel.favorite={};
+	favoriteViewModel.favorite = {};
+    favoriteViewModel.favoritesUser={};
+    favoriteViewModel.favoritesUserNumber={};
+    favoriteViewModel.favoritesProduct={};
+    favoriteViewModel.favoritesProductNumber={};
+	favoriteViewModel.favoriteUserProduct={};
     favoriteViewModel.functions = {
 
         // Leemos los favoritos del usuario con el identificador id que pasamos por parametro
@@ -11,7 +16,8 @@ angular.module('') // TODO : poner nombre al modulo
 			favoritesFactory.getFavoritesUserID(id)
 				.then(function (response) {
 					console.log("Reading favorites user with id: ", id, " Response: ", response);
-					favoriteViewModel.favorite = response;
+					favoriteViewModel.favoritesUser = response;
+					favoriteViewModel.favoritesUserNumber = response.length;
 				}), function(response) {
 					console.log("Error reading favorite");
 					$location.path('/');
@@ -25,7 +31,9 @@ angular.module('') // TODO : poner nombre al modulo
 			favoritesFactory.getFavoritesProductID(id)
 				.then(function (response) {
 					console.log("Reading favorites product with id: ", id, " Response: ", response);
-					favoriteViewModel.favorite = response;
+					favoriteViewModel.favoritesProduct = response;
+					favoriteViewModel.favoritesProductNumber = response.length;
+					console.log("Favorites number of product id", id , favoriteViewModel.favoritesProductNumber);
 				}), function(response) {
 					console.log("Error reading favorite");
 					$location.path('/');
@@ -34,8 +42,10 @@ angular.module('') // TODO : poner nombre al modulo
 		},
 
         // Creamos un nuevo favorito que previamente hemos depositado en el controlador
-		createFavorite : function() {
+		createFavorite : function(idu, idp) {
 
+			favoriteViewModel.favorite.idp = idp;
+			favoriteViewModel.favorite.idu = idu;
 	        favoritesFactory.postFavorite(favoriteViewModel.favorite)
 				.then(function (response) {
 					console.log("Creating favorite. Response: ", response)
@@ -44,24 +54,13 @@ angular.module('') // TODO : poner nombre al modulo
 				}
 			
 		},
-
-        // Actualizamos un favorito que previamente hemos depositado en el controlador
-		updateFavorite : function() {
-
-			favoritesFactory.putFavorite(favoriteViewModel.favorite)
-				.then(function (response) {
-					console.log("Updating favorite with id ", favoriteViewModel.favorite.id, " Response: ", response);
-				}), function (response) {
-					console.log("Error updating favorite");
-				}
-		},	
-
+		
         // Borramos un favorito con el identificador id que pasamos por parametro
-		deleteFavorite : function(id) {
+		deleteFavorite : function(idu, idp) {
 
-			favoritesFactory.deleteFavorite(id)
+			favoritesFactory.deleteFavorite(idu, idp)
 				.then(function (response) {
-					console.log("Deleting favorite with id ", id, " Response: ", response);
+					console.log("Deleting favorite with idu ", idu, " idp ", idp, "Response: ", response);
 				}), function (response) {
 					console.log("Error deleting favorite");
 				}
@@ -92,6 +91,8 @@ angular.module('') // TODO : poner nombre al modulo
     }
 
 	console.log("Entering favoritesCtrl with $routeParams.ID=",$routeParams.ID);
+	favoriteViewModel.functions.readFavoritesUserID($routeParams.ID);
+	favoriteViewModel.functions.readFavoritesProductID($routeParams.ID);
 
     // TODO ¿hace falta?
     /*
